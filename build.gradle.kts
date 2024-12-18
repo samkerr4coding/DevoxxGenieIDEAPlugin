@@ -6,8 +6,8 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
-group = "com.devoxx.genie"
-version = "0.4.6"
+group = "com.axa.jetbrains"
+version = "0.1.0"
 
 repositories {
     mavenCentral()

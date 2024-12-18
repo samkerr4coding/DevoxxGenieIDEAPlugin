@@ -2,14 +2,14 @@
 <idea-plugin>
 
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>com.devoxx.genie</id>
+    <id>com.axa.jetbrains</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
     <name>DevoxxGenie</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="info@devoxx.com" url="https://devoxx.com">Devoxx</vendor>
+    <vendor email="samir.kerroumi@axa.fr">Axa</vendor>
 
     <idea-version since-build="233"/>
 
@@ -17,19 +17,17 @@
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-        <p>Devoxx Genie IDEA Plugin</p>
+        <p>Axa AI for IDEA Plugin</p>
 
         <h3>Key Features</h3>
         <UL>
-            <LI>Support for local and cloud based language models: Ollama, OpenAI, Anthropic, Groq, ...</LI>
+            <LI>Dedicated to internal AI systems</LI>
             <LI>User defined prompts for selected code snippets</LI>
         </UL>
         <h3>Set-Up</h3>
         <UL>
             <LI>Install the plugin</LI>
-            <LI>Make sure you have Ollama, LMStudio or GPT4All running</LI>
-            <LI>Optional: Add API Keys for Cloud based LLM providers</LI>
-            <LI>Optional: Update the command prompts in the Settings</LI>
+            <LI>Make sure you have Credentials</LI>
             <LI>Start using the plugin</LI>
         </UL>
     ]]></description>
@@ -441,62 +439,62 @@
     <extensions defaultExtensionNs="com.intellij">
 
         <projectConfigurable parentId="tools"
-                             id="com.devoxx.genie.DevoxxGenie"
-                             instance="com.devoxx.genie.ui.settings.llm.LLMProvidersConfigurable"
+                             id="com.axa.jetbrains.DevoxxGenie"
+                             instance="com.axa.jetbrains.ui.settings.llm.LLMProvidersConfigurable"
                              displayName="DevoxxGenie"/>
 
-        <projectConfigurable id="com.devoxx.genie.LLMSettings"
-                             parentId="com.devoxx.genie.DevoxxGenie"
-                             instance="com.devoxx.genie.ui.settings.llmconfig.LLMConfigSettingsConfigurable"
+        <projectConfigurable id="com.axa.jetbrains.LLMSettings"
+                             parentId="com.axa.jetbrains.DevoxxGenie"
+                             instance="com.axa.jetbrains.ui.settings.llmconfig.LLMConfigSettingsConfigurable"
                              displayName="LLM Settings"/>
 
-        <projectConfigurable id="com.devoxx.genie.PromptSettings"
-                             parentId="com.devoxx.genie.DevoxxGenie"
-                             instance="com.devoxx.genie.ui.settings.prompt.PromptSettingsConfigurable"
+        <projectConfigurable id="com.axa.jetbrains.PromptSettings"
+                             parentId="com.axa.jetbrains.DevoxxGenie"
+                             instance="com.axa.jetbrains.ui.settings.prompt.PromptSettingsConfigurable"
                              displayName="Prompts"/>
 
-        <projectConfigurable id="com.devoxx.genie.CopyProjectSettings"
-                             parentId="com.devoxx.genie.DevoxxGenie"
-                             instance="com.devoxx.genie.ui.settings.copyproject.CopyProjectSettingsConfigurable"
+        <projectConfigurable id="com.axa.jetbrains.CopyProjectSettings"
+                             parentId="com.axa.jetbrains.DevoxxGenie"
+                             instance="com.axa.jetbrains.ui.settings.copyproject.CopyProjectSettingsConfigurable"
                              displayName="Scan &amp; Copy Project"/>
 
-        <projectConfigurable id="com.devoxx.genie.DiffSettings"
-                             parentId="com.devoxx.genie.DevoxxGenie"
-                             instance="com.devoxx.genie.ui.settings.gitdiff.GitDiffSettingsConfigurable"
+        <projectConfigurable id="com.axa.jetbrains.DiffSettings"
+                             parentId="com.axa.jetbrains.DevoxxGenie"
+                             instance="com.axa.jetbrains.ui.settings.gitdiff.GitDiffSettingsConfigurable"
                              displayName="LLM Git Diff View"/>
 
-        <projectConfigurable id="com.devoxx.genie.llmfeatures"
-                             parentId="com.devoxx.genie.DevoxxGenie"
-                             instance="com.devoxx.genie.ui.settings.costsettings.LanguageModelCostSettingsConfigurable"
+        <projectConfigurable id="com.axa.jetbrains.llmfeatures"
+                             parentId="com.axa.jetbrains.DevoxxGenie"
+                             instance="com.axa.jetbrains.ui.settings.costsettings.LanguageModelCostSettingsConfigurable"
                              displayName="Token Cost &amp; Context Window"/>
 
         <toolWindow id="DevoxxGenie"
                     anchor="right"
                     icon="/icons/pluginIcon.svg"
-                    factoryClass="com.devoxx.genie.ui.DevoxxGenieToolWindowFactory"/>
+                    factoryClass="ui.com.axa.jetbrains.DevoxxGenieToolWindowFactory"/>
 
-        <applicationService serviceImplementation="com.devoxx.genie.ui.settings.DevoxxGenieStateService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.ConversationStorageService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.PromptExecutionService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.ChatMemoryService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.MessageCreationService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.LLMProviderService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.PropertiesService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.projectscanner.ProjectScannerService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.ProjectContentService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.TokenCalculationService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.gitdiff.GitMergeService"/>
+        <applicationService serviceImplementation="com.axa.jetbrains.ui.settings.DevoxxGenieStateService"/>
+        <applicationService serviceImplementation="com.axa.jetbrains.service.ConversationStorageService"/>
+        <applicationService serviceImplementation="com.axa.jetbrains.service.PromptExecutionService"/>
+        <applicationService serviceImplementation="com.axa.jetbrains.service.ChatMemoryService"/>
+        <applicationService serviceImplementation="com.axa.jetbrains.service.MessageCreationService"/>
+        <applicationService serviceImplementation="com.axa.jetbrains.service.LLMProviderService"/>
+        <applicationService serviceImplementation="com.axa.jetbrains.service.PropertiesService"/>
+        <applicationService serviceImplementation="com.axa.jetbrains.service.projectscanner.ProjectScannerService"/>
+        <applicationService serviceImplementation="com.axa.jetbrains.service.ProjectContentService"/>
+        <applicationService serviceImplementation="com.axa.jetbrains.service.TokenCalculationService"/>
+        <applicationService serviceImplementation="com.axa.jetbrains.service.gitdiff.GitMergeService"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <notificationGroup id="com.devoxx.genie.notifications" displayType="BALLOON" />
-        <postStartupActivity implementation="com.devoxx.genie.service.PostStartupActivity"/>
+        <notificationGroup id="com.axa.jetbrains.notifications" displayType="BALLOON" />
+        <postStartupActivity implementation="com.axa.jetbrains.service.PostStartupActivity"/>
     </extensions>
 
     <actions>
 
         <action id="DevoxxGenie.AddSnippetAction"
-                class="com.devoxx.genie.action.AddSnippetAction"
+                class="com.axa.jetbrains.action.AddSnippetAction"
                 text="Add To Prompt Context"
                 icon="/icons/pluginIcon.svg"
                 description="Add code snippet to context window">
@@ -504,7 +502,7 @@
         </action>
 
         <action id="DevoxxGenie.AddFilesAction"
-                class="com.devoxx.genie.action.AddFileAction"
+                class="com.axa.jetbrains.action.AddFileAction"
                 text="Add File(s) To Prompt Context"
                 icon="/icons/pluginIcon.svg"
                 description="Add file(s) to the prompt context">
@@ -512,7 +510,7 @@
         </action>
 
         <action id="AddDirectoryToContextWindow"
-                class="com.devoxx.genie.action.AddDirectoryAction"
+                class="com.axa.jetbrains.action.AddDirectoryAction"
                 text="Add Directory to Prompt Context"
                 icon="/icons/pluginIcon.svg"
                 description="Add the selected directory to the context window">
@@ -520,7 +518,7 @@
         </action>
 
         <action id="CopyDirectoryToClipboard"
-                class="com.devoxx.genie.action.AddDirectoryAction"
+                class="com.axa.jetbrains.action.AddDirectoryAction"
                 text="Copy Directory to Clipboard"
                 icon="/icons/pluginIcon.svg"
                 description="Copy the selected directory content to clipboard">
@@ -528,7 +526,7 @@
         </action>
 
         <action id="CalcTokenDirectory"
-                class="com.devoxx.genie.action.CalcTokensForDirectoryAction"
+                class="com.axa.jetbrains.action.CalcTokensForDirectoryAction"
                 text="Calc Tokens for Directory"
                 icon="/icons/pluginIcon.svg"
                 description="Calculate the tokens for selected directory">
