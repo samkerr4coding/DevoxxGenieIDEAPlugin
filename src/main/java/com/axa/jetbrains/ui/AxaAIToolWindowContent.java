@@ -32,7 +32,7 @@ import static com.axa.jetbrains.model.Constant.MESSAGES;
 /**
  * The Devoxx Genie Tool Window Content.
  */
-public class AxaAiToolWindowContent implements SettingsChangeListener, GlowingListener {
+public class AxaAIToolWindowContent implements SettingsChangeListener, GlowingListener {
 
     private static final float SPLITTER_PROPORTION = 0.75f;
     private static final float MIN_PROPORTION = 0.3f;
@@ -64,7 +64,7 @@ public class AxaAiToolWindowContent implements SettingsChangeListener, GlowingLi
      *
      * @param toolWindow the tool window
      */
-    public AxaAiToolWindowContent(@NotNull ToolWindow toolWindow) {
+    public AxaAIToolWindowContent(@NotNull ToolWindow toolWindow) {
         project = toolWindow.getProject();
 
         DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();

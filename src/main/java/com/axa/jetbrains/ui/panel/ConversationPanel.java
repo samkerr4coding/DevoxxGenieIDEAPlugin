@@ -6,7 +6,7 @@ import com.axa.jetbrains.service.ChatMemoryService;
 import com.axa.jetbrains.service.ChatService;
 import com.axa.jetbrains.service.FileListManager;
 import com.axa.jetbrains.ui.ConversationStarter;
-import com.axa.jetbrains.ui.AxaAiToolWindowContent;
+import com.axa.jetbrains.ui.AxaAIToolWindowContent;
 import com.axa.jetbrains.ui.component.JHoverButton;
 import com.axa.jetbrains.ui.listener.ConversationEventListener;
 import com.axa.jetbrains.ui.listener.ConversationSelectionListener;
@@ -31,7 +31,7 @@ import static com.axa.jetbrains.ui.util.TimestampUtil.getCurrentTimestamp;
 @Getter
 public class ConversationPanel extends JPanel implements ConversationSelectionListener, ConversationEventListener, ConversationStarter {
 
-    private final AxaAiToolWindowContent toolWindowContent;
+    private final AxaAIToolWindowContent toolWindowContent;
 
     private final JButton newConversationBtn = new JHoverButton(PlusIcon, true);
     private final JButton settingsBtn = new JHoverButton(CogIcon, true);
@@ -53,7 +53,7 @@ public class ConversationPanel extends JPanel implements ConversationSelectionLi
      *
      * @param toolWindowContent the tool window content
      */
-    public ConversationPanel(AxaAiToolWindowContent toolWindowContent) {
+    public ConversationPanel(AxaAIToolWindowContent toolWindowContent) {
         super(new BorderLayout());
 
         this.toolWindowContent = toolWindowContent;

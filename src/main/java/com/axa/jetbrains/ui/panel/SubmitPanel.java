@@ -1,6 +1,6 @@
 package com.axa.jetbrains.ui.panel;
 
-import com.axa.jetbrains.ui.AxaAiToolWindowContent;
+import com.axa.jetbrains.ui.AxaAIToolWindowContent;
 import com.axa.jetbrains.ui.component.input.PromptInputArea;
 import com.axa.jetbrains.ui.listener.GlowingListener;
 import com.intellij.openapi.project.Project;
@@ -18,7 +18,7 @@ public class SubmitPanel extends JBPanel<SubmitPanel>  implements GlowingListene
     private static final int MIN_INPUT_HEIGHT = 200;
 
     private final Project project;
-    private final AxaAiToolWindowContent toolWindowContent;
+    private final AxaAIToolWindowContent toolWindowContent;
 
     @Getter
     private final PromptInputArea promptInputArea;
@@ -31,7 +31,7 @@ public class SubmitPanel extends JBPanel<SubmitPanel>  implements GlowingListene
      *
      * @param toolWindowContent the tool window content
      */
-    public SubmitPanel(@NotNull AxaAiToolWindowContent toolWindowContent) {
+    public SubmitPanel(@NotNull AxaAIToolWindowContent toolWindowContent) {
         super(new BorderLayout());
 
         this.toolWindowContent = toolWindowContent;

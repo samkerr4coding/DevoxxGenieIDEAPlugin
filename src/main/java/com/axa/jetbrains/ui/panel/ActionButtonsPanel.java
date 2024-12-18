@@ -6,7 +6,7 @@ import com.axa.jetbrains.controller.listener.TokenCalculationListener;
 import com.axa.jetbrains.model.Constant;
 import com.axa.jetbrains.model.LanguageModel;
 import com.axa.jetbrains.model.enumarations.ModelProvider;
-import com.axa.jetbrains.ui.AxaAiToolWindowContent;
+import com.axa.jetbrains.ui.AxaAIToolWindowContent;
 import com.axa.jetbrains.ui.EditorFileButtonManager;
 import com.axa.jetbrains.ui.component.ContextPopupMenu;
 import com.axa.jetbrains.ui.component.JHoverButton;
@@ -61,7 +61,7 @@ public class ActionButtonsPanel extends JPanel
     private final PromptInputArea promptInputArea;
     private final TokenUsageBar tokenUsageBar = createTokenUsageBar();
 
-    private final transient AxaAiToolWindowContent axaAiToolWindowContent;
+    private final transient AxaAIToolWindowContent axaAiToolWindowContent;
 
     private final transient ActionButtonsPanelController controller;
     private final transient ProjectContextController projectContextController;
@@ -72,7 +72,7 @@ public class ActionButtonsPanel extends JPanel
                               PromptOutputPanel promptOutputPanel,
                               ComboBox<ModelProvider> llmProvidersComboBox,
                               ComboBox<LanguageModel> modelNameComboBox,
-                              AxaAiToolWindowContent axaAiToolWindowContent) {
+                              AxaAIToolWindowContent axaAiToolWindowContent) {
         setLayout(new BorderLayout());
         // setBorder(JBUI.Borders.empty(10));
 

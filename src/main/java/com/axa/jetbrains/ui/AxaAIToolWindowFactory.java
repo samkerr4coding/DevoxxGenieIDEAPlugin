@@ -12,12 +12,12 @@ import com.intellij.util.messages.MessageBus;
 import com.intellij.util.messages.MessageBusConnection;
 import org.jetbrains.annotations.NotNull;
 
-final class DevoxxGenieToolWindowFactory implements ToolWindowFactory, DumbAware {
+final class AxaAIToolWindowFactory implements ToolWindowFactory, DumbAware {
 
     @Override
     public void createToolWindowContent(@NotNull Project project,
                                         @NotNull ToolWindow toolWindow) {
-        AxaAiToolWindowContent toolWindowContent = new AxaAiToolWindowContent(toolWindow);
+        AxaAIToolWindowContent toolWindowContent = new AxaAIToolWindowContent(toolWindow);
         Content content = ContentFactory.getInstance().createContent(toolWindowContent.getContentPanel(), "", false);
         toolWindow.getContentManager().addContent(content);
 
