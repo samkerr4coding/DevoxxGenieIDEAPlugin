@@ -18,14 +18,7 @@ public class DefaultLLMSettingsUtil {
      * @return true when API Key is required, meaning a cost is involved
      */
     public static boolean isApiKeyBasedProvider(ModelProvider provider) {
-        return provider == ModelProvider.OpenAI ||
-                provider == ModelProvider.Anthropic ||
-                provider == ModelProvider.Mistral ||
-                provider == ModelProvider.Groq ||
-                provider == ModelProvider.DeepInfra ||
-                provider == ModelProvider.Google ||
-                provider == ModelProvider.OpenRouter ||
-                provider == ModelProvider.AzureOpenAI;
+        return provider == ModelProvider.AzureOpenAI;
     }
 
     public record CostKey(ModelProvider provider, String modelName) {

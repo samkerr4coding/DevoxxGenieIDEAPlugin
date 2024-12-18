@@ -20,14 +20,6 @@ public class LLMProviderService {
 
     static {
         DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
-        providerKeyMap.put(OpenAI, stateService::getOpenAIKey);
-        providerKeyMap.put(Anthropic, stateService::getAnthropicKey);
-        providerKeyMap.put(Mistral, stateService::getMistralKey);
-        providerKeyMap.put(Groq, stateService::getGroqKey);
-        providerKeyMap.put(DeepInfra, stateService::getDeepInfraKey);
-        providerKeyMap.put(Google, stateService::getGeminiKey);
-        providerKeyMap.put(DeepSeek, stateService::getDeepSeekKey);
-        providerKeyMap.put(OpenRouter, stateService::getOpenRouterKey);
         providerKeyMap.put(AzureOpenAI, stateService::getAzureOpenAIKey);
     }
 

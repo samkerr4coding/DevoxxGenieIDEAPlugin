@@ -3,8 +3,6 @@ package com.devoxx.genie.service;
 import com.devoxx.genie.model.request.ChatMessageContext;
 import com.devoxx.genie.model.request.EditorInfo;
 import com.devoxx.genie.model.request.SemanticFile;
-import com.devoxx.genie.service.rag.SearchResult;
-import com.devoxx.genie.service.rag.SemanticSearchService;
 import com.devoxx.genie.ui.settings.DevoxxGenieStateService;
 import com.devoxx.genie.ui.util.NotificationUtil;
 import com.devoxx.genie.util.ChatMessageContextUtil;
@@ -91,14 +89,6 @@ public class MessageCreationService {
         if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getGitDiffActivated())) {
             // Git diff is enabled, add special instructions at the beginning
             stringBuilder.append("<DiffInstructions>").append(GIT_DIFF_INSTRUCTIONS).append("</DiffInstructions>\n\n");
-        } else if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getRagActivated())) {
-            // Semantic search is enabled, add search results
-            String semanticContext = addSemanticSearchResults(chatMessageContext);
-            if (!semanticContext.isEmpty()) {
-                stringBuilder.append("<SemanticContext>\n");
-                stringBuilder.append(semanticContext);
-                stringBuilder.append("\n</SemanticContext>");
-            }
         }
 
         // Add the user's prompt
@@ -115,68 +105,6 @@ public class MessageCreationService {
         UserMessage userMessage = new UserMessage(stringBuilder.toString());
         chatMessageContext.setUserMessage(userMessage);
         return userMessage;
-    }
-
-    /**
-     * Create user message with project content based on semantic search results.
-     * @param chatMessageContext the chat message context
-     * @return the user message
-     */
-    private @NotNull String addSemanticSearchResults(@NotNull ChatMessageContext chatMessageContext) {
-        StringBuilder contextBuilder = new StringBuilder();
-
-        try {
-            SemanticSearchService semanticSearchService = SemanticSearchService.getInstance();
-
-            // Get semantic search results from ChromaDB
-            Map<String, SearchResult> searchResults =
-                    semanticSearchService.search(chatMessageContext.getProject(), chatMessageContext.getUserPrompt());
-
-            if (!searchResults.isEmpty()) {
-                List<SemanticFile> fileReferences = extractFileReferences(searchResults);
-
-                // Store references in chat message context for UI use
-                chatMessageContext.setSemanticReferences(fileReferences);
-
-                contextBuilder.append("Referenced files:\n");
-                fileReferences.forEach(file -> contextBuilder.append("- ").append(file).append("\n"));
-                contextBuilder.append("\n");
-
-                Set<Map.Entry<String, SearchResult>> entries = searchResults.entrySet();
-                // Format search results
-                String formattedResults = entries.stream()
-                        .map(MessageCreationService::getFileContent)
-                        .collect(Collectors.joining("\n"));
-
-                contextBuilder.append(formattedResults);
-
-                // Log the number of relevant snippets found
-                NotificationUtil.sendNotification(
-                        chatMessageContext.getProject(),
-                        String.format("Found %d relevant project file%s using RAG", searchResults.size(), searchResults.size() > 1 ? "s" : "")
-                );
-            }
-        } catch (Exception e) {
-            LOG.warning("Failed to get semantic search results: " + e.getMessage());
-        }
-
-        return contextBuilder.toString();
-    }
-
-    private static @NotNull String getFileContent(Map.@NotNull Entry<String, SearchResult> entry) {
-        String fileContent;
-        try {
-            fileContent = Files.readString(Paths.get(entry.getKey()));
-        } catch (IOException e) {
-            return "";
-        }
-        return SEMANTIC_RESULT.formatted(entry.getKey(), entry.getValue().score(), fileContent);
-    }
-
-    public static List<SemanticFile> extractFileReferences(@NotNull Map<String, SearchResult> searchResults) {
-        return searchResults.keySet().stream()
-                .map(value -> new SemanticFile(value, searchResults.get(value).score()))
-                .toList();
     }
 
     /**

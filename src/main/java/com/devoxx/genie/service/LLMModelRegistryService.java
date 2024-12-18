@@ -1,6 +1,5 @@
 package com.devoxx.genie.service;
 
-import com.devoxx.genie.chatmodel.openrouter.OpenRouterChatModelFactory;
 import com.devoxx.genie.model.LanguageModel;
 import com.devoxx.genie.model.enumarations.ModelProvider;
 import com.intellij.openapi.application.ApplicationManager;
@@ -630,14 +629,6 @@ public final class LLMModelRegistryService {
 
         // Create a copy of the current models
         Map<String, LanguageModel> modelsCopy = new HashMap<>(models);
-
-        // Add OpenRouter models if API key exists
-        OpenRouterChatModelFactory openRouterChatModelFactory = new OpenRouterChatModelFactory();
-        String apiKey = openRouterChatModelFactory.getApiKey(OPEN_ROUTER_PROVIDER);
-        if (apiKey != null && !apiKey.isEmpty()) {
-            openRouterChatModelFactory.getModels().forEach(model ->
-                modelsCopy.put(OPEN_ROUTER_PROVIDER.getName() + ":" + model.getModelName(), model));
-        }
 
         return new ArrayList<>(modelsCopy.values());
     }

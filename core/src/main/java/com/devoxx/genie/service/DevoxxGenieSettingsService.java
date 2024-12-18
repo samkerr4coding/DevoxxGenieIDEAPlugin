@@ -12,45 +12,11 @@ public interface DevoxxGenieSettingsService {
 
     List<LanguageModel> getLanguageModels();
 
-    String getOllamaModelUrl();
-
-    String getLmstudioModelUrl();
-
-    String getGpt4allModelUrl();
-
-    String getJanModelUrl();
-
-    String getOpenAIKey();
-
     String getAzureOpenAIEndpoint();
 
     String getAzureOpenAIDeployment();
 
     String getAzureOpenAIKey();
-
-    String getMistralKey();
-
-    String getAnthropicKey();
-
-    String getGroqKey();
-
-    String getDeepInfraKey();
-
-    String getGeminiKey();
-
-    String getDeepSeekKey();
-
-    String getOpenRouterKey();
-
-    Boolean getIsWebSearchEnabled();
-
-    String getGoogleSearchKey();
-
-    String getGoogleCSIKey();
-
-    String getTavilySearchKey();
-
-    Integer getMaxSearchResults();
 
     String getSelectedProvider(String projectLocation);
 
@@ -94,45 +60,11 @@ public interface DevoxxGenieSettingsService {
 
     void setLanguageModels(List<LanguageModel> languageModels);
 
-    void setOllamaModelUrl(String url);
-
-    void setLmstudioModelUrl(String url);
-
-    void setGpt4allModelUrl(String url);
-
-    void setJanModelUrl(String url);
-
-    void setOpenAIKey(String key);
-
     void setAzureOpenAIEndpoint(String endpoint);
 
     void setAzureOpenAIDeployment(String deployment);
 
     void setAzureOpenAIKey(String key);
-
-    void setMistralKey(String key);
-
-    void setAnthropicKey(String key);
-
-    void setGroqKey(String key);
-
-    void setDeepInfraKey(String key);
-
-    void setGeminiKey(String key);
-
-    void setDeepSeekKey(String key);
-
-    void setOpenRouterKey(String key);
-
-    void setIsWebSearchEnabled(Boolean flag);
-
-    void setGoogleSearchKey(String key);
-
-    void setGoogleCSIKey(String key);
-
-    void setTavilySearchKey(String key);
-
-    void setMaxSearchResults(Integer results);
 
     void setSelectedProvider(String projectLocation, String provider);
 
@@ -170,21 +102,12 @@ public interface DevoxxGenieSettingsService {
 
     void setModelWindowContext(ModelProvider provider, String modelName, int windowContext);
 
-    String getLlamaCPPUrl();
-
-    void setLlamaCPPUrl(String text);
-
     Boolean getShowExecutionTime();
 
     void setShowExecutionTime(Boolean showExecutionTime);
 
     void setUseGitIgnore(Boolean useGitIgnore);
 
-    void setCustomOpenAIUrl(String text);
 
-    String getCustomOpenAIUrl();
 
-    void setCustomOpenAIModelName(String text);
-
-    String getCustomOpenAIModelName();
 }

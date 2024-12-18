@@ -21,7 +21,6 @@ import java.awt.*;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
-import static com.devoxx.genie.model.Constant.FIND_COMMAND;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
 
@@ -133,14 +132,7 @@ public class PromptOutputPanel extends JBPanel<PromptOutputPanel> implements Cus
         waitingPanel.hideMsg();
         addFiller(chatMessageContext.getId());
 
-        // Special handling for find command
-        if (FIND_COMMAND.equals(chatMessageContext.getCommandName()) &&
-            chatMessageContext.getSemanticReferences() != null &&
-            !chatMessageContext.getSemanticReferences().isEmpty()) {
-            container.add(new FindResultsPanel(project, chatMessageContext.getSemanticReferences()));
-        } else {
-            container.add(new ChatResponsePanel(chatMessageContext));
-        }
+        container.add(new ChatResponsePanel(chatMessageContext));
 
         container.revalidate();
         container.repaint();

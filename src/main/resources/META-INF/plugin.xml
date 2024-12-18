@@ -455,11 +455,6 @@
                              instance="com.devoxx.genie.ui.settings.prompt.PromptSettingsConfigurable"
                              displayName="Prompts"/>
 
-        <projectConfigurable id="com.devoxx.genie.WebSearch"
-                             parentId="com.devoxx.genie.DevoxxGenie"
-                             instance="com.devoxx.genie.ui.settings.websearch.WebSearchProvidersConfigurable"
-                             displayName="Web search"/>
-
         <projectConfigurable id="com.devoxx.genie.CopyProjectSettings"
                              parentId="com.devoxx.genie.DevoxxGenie"
                              instance="com.devoxx.genie.ui.settings.copyproject.CopyProjectSettingsConfigurable"
@@ -469,11 +464,6 @@
                              parentId="com.devoxx.genie.DevoxxGenie"
                              instance="com.devoxx.genie.ui.settings.gitdiff.GitDiffSettingsConfigurable"
                              displayName="LLM Git Diff View"/>
-
-        <projectConfigurable id="com.devoxx.genie.RAG"
-                             parentId="com.devoxx.genie.DevoxxGenie"
-                             instance="com.devoxx.genie.ui.settings.rag.RAGSettingsConfigurable"
-                             displayName="RAG"/>
 
         <projectConfigurable id="com.devoxx.genie.llmfeatures"
                              parentId="com.devoxx.genie.DevoxxGenie"
@@ -490,20 +480,12 @@
         <applicationService serviceImplementation="com.devoxx.genie.service.PromptExecutionService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.ChatMemoryService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.MessageCreationService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.ollama.OllamaService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.gpt4all.GPT4AllService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.websearch.WebSearchService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.LLMProviderService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.PropertiesService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.projectscanner.ProjectScannerService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.ProjectContentService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.TokenCalculationService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.lmstudio.LMStudioService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.openrouter.OpenRouterService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.jan.JanService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.gitdiff.GitMergeService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.chromadb.ChromaDockerService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.rag.ProjectIndexerService"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">

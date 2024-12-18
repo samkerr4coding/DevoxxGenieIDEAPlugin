@@ -25,7 +25,6 @@ public class Constant {
     public static final String HELP_PROMPT = "Display help and available commands for the Genie Devoxx Plugin";
 
     public static final String TEST_COMMAND = "test";
-    public static final String FIND_COMMAND = "find";
     public static final String REVIEW_COMMAND = "review";
     public static final String EXPLAIN_COMMAND = "explain";
     public static final String TDG_COMMAND = "tdg";

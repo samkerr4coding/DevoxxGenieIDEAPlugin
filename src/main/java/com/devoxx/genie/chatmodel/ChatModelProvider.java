@@ -1,6 +1,5 @@
 package com.devoxx.genie.chatmodel;
 
-import com.devoxx.genie.chatmodel.lmstudio.LMStudioChatModelFactory;
 import com.devoxx.genie.model.ChatModel;
 import com.devoxx.genie.model.Constant;
 import com.devoxx.genie.model.LanguageModel;
@@ -25,12 +24,6 @@ public class ChatModelProvider {
     public ChatLanguageModel getChatLanguageModel(@NotNull ChatMessageContext chatMessageContext) {
         ChatModel chatModel = initChatModel(chatMessageContext);
         ChatModelFactory factory = getFactory(chatMessageContext);
-
-        if (factory instanceof LMStudioChatModelFactory) {
-            if (factory.getModels().isEmpty()) {
-                throw new IllegalStateException("LMStudio is not running. Please start it and try again.");
-            }
-        }
 
         return factory.createChatModel(chatModel);
     }
@@ -62,33 +55,7 @@ public class ChatModelProvider {
         LanguageModel languageModel = chatMessageContext.getLanguageModel();
         chatModel.setModelName(languageModel.getModelName() == null ? TEST_MODEL : languageModel.getModelName());
 
-        setLocalBaseUrl(languageModel, chatModel, stateService);
-
         return chatModel;
-    }
-
-    private void setLocalBaseUrl(@NotNull LanguageModel languageModel,
-                                 ChatModel chatModel,
-                                 DevoxxGenieSettingsService stateService) {
-        // Set base URL for local providers
-        switch (languageModel.getProvider()) {
-            case LMStudio:
-                chatModel.setBaseUrl(stateService.getLmstudioModelUrl());
-                break;
-            case Ollama:
-                chatModel.setBaseUrl(stateService.getOllamaModelUrl());
-                break;
-            case GPT4All:
-                chatModel.setBaseUrl(stateService.getGpt4allModelUrl());
-                break;
-            case LLaMA:
-                chatModel.setBaseUrl(stateService.getLlamaCPPUrl());
-                break;
-            case CustomOpenAI:
-                chatModel.setBaseUrl(stateService.getCustomOpenAIUrl());
-                break;
-            // Add other local providers as needed
-        }
     }
 
     private static void setMaxOutputTokens(@NotNull DevoxxGenieSettingsService settingsState,

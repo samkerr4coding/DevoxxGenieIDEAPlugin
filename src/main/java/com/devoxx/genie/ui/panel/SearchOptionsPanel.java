@@ -53,41 +53,16 @@ public class SearchOptionsPanel extends JPanel {
         updateInitialVisibility(stateService);
 
         // Load saved states for enabled switches
-        ragSwitch.setSelected(stateService.getRagActivated());
         gitDiffSwitch.setSelected(stateService.getGitDiffActivated());
-        webSearchSwitch.setSelected(stateService.getWebSearchActivated());
 
         // Ensure only one switch is initially active
         enforceInitialSingleSelection();
-
-        // Add state change listeners with mutual exclusion
-        ragSwitch.addEventSelected(selected -> {
-            if (selected) {
-                deactivateOtherSwitches(ragSwitch);
-            }
-
-            // Change input field placeholder based on RAG state
-            project.getMessageBus()
-                    .syncPublisher(AppTopics.RAG_ACTIVATED_CHANGED_TOPIC)
-                    .onRAGStateChanged(selected);
-
-            stateService.setRagActivated(selected);
-            updatePanelVisibility();
-        });
 
         gitDiffSwitch.addEventSelected(selected -> {
             if (selected) {
                 deactivateOtherSwitches(gitDiffSwitch);
             }
             stateService.setGitDiffActivated(selected);
-            updatePanelVisibility();
-        });
-
-        webSearchSwitch.addEventSelected(selected -> {
-            if (selected) {
-                deactivateOtherSwitches(webSearchSwitch);
-            }
-            stateService.setWebSearchActivated(selected);
             updatePanelVisibility();
         });
 
@@ -132,9 +107,7 @@ public class SearchOptionsPanel extends JPanel {
 
     private void updateInitialVisibility(@NotNull DevoxxGenieStateService stateService) {
         // Set initial visibility based on state service
-        switches.get(0).setVisible(stateService.getRagEnabled());
         switches.get(1).setVisible(stateService.getGitDiffEnabled());
-        switches.get(2).setVisible(stateService.getIsWebSearchEnabled());
 
         // Update panel visibility
         updatePanelVisibility();
@@ -144,28 +117,11 @@ public class SearchOptionsPanel extends JPanel {
         Application application = ApplicationManager.getApplication();
         MessageBusConnection connect = application.getMessageBus().connect();
 
-        // Subscribe to state changes and update both visibility and selection
-        connect.subscribe(AppTopics.RAG_STATE_TOPIC,
-                (RAGStateListener) enabled -> {
-                    InputSwitch ragSwitch = switches.get(0);
-                    ragSwitch.setVisible(enabled);
-                    ragSwitch.setSelected(enabled);
-                    updatePanelVisibility();
-                });
-
         connect.subscribe(AppTopics.GITDIFF_STATE_TOPIC,
                 (GitDiffStateListener) enabled -> {
                     InputSwitch gitDiffSwitch = switches.get(1);
                     gitDiffSwitch.setVisible(enabled);
                     gitDiffSwitch.setSelected(enabled);
-                    updatePanelVisibility();
-                });
-
-        connect.subscribe(AppTopics.WEB_SEARCH_STATE_TOPIC,
-                (WebSearchStateListener) enabled -> {
-                    InputSwitch webSearchSwitch = switches.get(2);
-                    webSearchSwitch.setVisible(enabled);
-                    webSearchSwitch.setSelected(enabled);
                     updatePanelVisibility();
                 });
     }

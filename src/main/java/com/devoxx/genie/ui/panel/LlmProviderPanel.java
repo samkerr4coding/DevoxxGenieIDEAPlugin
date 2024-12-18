@@ -117,21 +117,8 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
 
         providerService.getAvailableModelProviders().stream()
                 .filter(provider -> switch (provider) {
-                    case Ollama -> stateService.isOllamaEnabled();
-                    case LMStudio -> stateService.isLmStudioEnabled();
-                    case GPT4All -> stateService.isGpt4AllEnabled();
-                    case Jan -> stateService.isJanEnabled();
-                    case LLaMA -> stateService.isLlamaCPPEnabled();
-                    case CustomOpenAI -> stateService.isCustomOpenAIUrlEnabled();
-                    case OpenAI -> stateService.isOpenAIEnabled();
-                    case Mistral -> stateService.isMistralEnabled();
-                    case Anthropic -> stateService.isAnthropicEnabled();
-                    case Groq -> stateService.isGroqEnabled();
-                    case DeepInfra -> stateService.isDeepInfraEnabled();
-                    case Google -> stateService.isGoogleEnabled();
-                    case DeepSeek -> stateService.isDeepSeekEnabled();
-                    case OpenRouter -> stateService.isOpenRouterEnabled();
                     case AzureOpenAI -> stateService.isAzureOpenAIEnabled();
+                    default -> false;
                 })
                 .distinct()
                 .sorted(Comparator.comparing(ModelProvider::getName))

@@ -44,7 +44,6 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
             new CustomPrompt(EXPLAIN_COMMAND, EXPLAIN_PROMPT),
             new CustomPrompt(REVIEW_COMMAND, REVIEW_PROMPT),
             new CustomPrompt(TDG_COMMAND, TDG_PROMPT),
-            new CustomPrompt(FIND_COMMAND, FIND_PROMPT),
             new CustomPrompt(HELP_COMMAND, HELP_PROMPT)
     );
 
@@ -53,13 +52,10 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
     private Boolean showExecutionTime = true;
 
     // Settings panel
-    private Boolean ragEnabled = false;
     private Boolean gitDiffEnabled = false;
 
     // Search panel
-    private Boolean ragActivated = false;
     private Boolean gitDiffActivated = false;
-    private Boolean webSearchActivated = false;
 
     // Indexer
     private Integer indexerPort = 8000;
@@ -69,61 +65,9 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
     // Git Diff features
     private Boolean useSimpleDiff = false;
 
-    // Local LLM URL fields
-    private String ollamaModelUrl = OLLAMA_MODEL_URL;
-    private String lmstudioModelUrl = LMSTUDIO_MODEL_URL;
-    private String gpt4allModelUrl = GPT4ALL_MODEL_URL;
-    private String janModelUrl = JAN_MODEL_URL;
-    private String llamaCPPUrl = LLAMA_CPP_MODEL_URL;
-
-    // Local custom OpenAI-compliant LLM fields
-    private String customOpenAIUrl = "";
-    private String customOpenAIModelName = "";
-
-    // Local LLM Providers
-    private boolean isOllamaEnabled = true;
-    private boolean isLmStudioEnabled = true;
-    private boolean isGpt4AllEnabled = true;
-    private boolean isJanEnabled = true;
-    private boolean isLlamaCPPEnabled = true;
-
-    // Local custom OpenAI-compliant LLM fields
-    private boolean isCustomOpenAIUrlEnabled = false;
-    private boolean isCustomOpenAIModelNameEnabled = false;
-
-    // Remote LLM Providers
-    private boolean isOpenAIEnabled = false;
-    private boolean isMistralEnabled = false;
-    private boolean isAnthropicEnabled = false;
-    private boolean isGroqEnabled = false;
-    private boolean isDeepInfraEnabled = false;
-    private boolean isGoogleEnabled = false;
-    private boolean isDeepSeekEnabled = false;
-    private boolean isOpenRouterEnabled = false;
-
-    // LLM API Keys
-    private String openAIKey = "";
-    private String mistralKey = "";
-    private String anthropicKey = "";
-    private String groqKey = "";
-    private String deepInfraKey = "";
-    private String geminiKey = "";
-    private String deepSeekKey = "";
-    private String openRouterKey = "";
     private String azureOpenAIEndpoint = "";
     private String azureOpenAIDeployment = "";
     private String azureOpenAIKey = "";
-
-    // Search API Keys
-    private Boolean isWebSearchEnabled = ENABLE_WEB_SEARCH;
-
-    private boolean tavilySearchEnabled = false;
-    private boolean googleSearchEnabled = false;
-
-    private String googleSearchKey = "";
-    private String googleCSIKey = "";
-    private String tavilySearchKey = "";
-    private Integer maxSearchResults = MAX_SEARCH_RESULTS;
 
     // Last selected language model
     private Map<String, String> lastSelectedProvider;

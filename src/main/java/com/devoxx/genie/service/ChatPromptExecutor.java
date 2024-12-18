@@ -5,11 +5,9 @@ import com.devoxx.genie.model.CustomPrompt;
 import com.devoxx.genie.model.request.ChatMessageContext;
 import com.devoxx.genie.model.request.EditorInfo;
 import com.devoxx.genie.service.streaming.StreamingPromptExecutor;
-import com.devoxx.genie.service.websearch.WebSearchExecutor;
 import com.devoxx.genie.ui.component.input.PromptInputArea;
 import com.devoxx.genie.ui.panel.PromptOutputPanel;
 import com.devoxx.genie.ui.settings.DevoxxGenieStateService;
-import com.devoxx.genie.ui.util.NotificationUtil;
 import com.devoxx.genie.util.FileTypeUtil;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
@@ -27,7 +25,6 @@ import java.util.Optional;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static com.devoxx.genie.model.Constant.FIND_COMMAND;
 import static com.devoxx.genie.model.Constant.HELP_COMMAND;
 
 public class ChatPromptExecutor {
@@ -67,16 +64,7 @@ public class ChatPromptExecutor {
         new Task.Backgroundable(chatMessageContext.getProject(), "Working...", true) {
             @Override
             public void run(@NotNull ProgressIndicator progressIndicator) {
-                if (chatMessageContext.isWebSearchRequested()) {
-                    new WebSearchExecutor().execute(chatMessageContext, promptOutputPanel, () -> {
-                        isRunningMap.put(project, false);
-                        enableButtons.run();
-                        ApplicationManager.getApplication().invokeLater(() -> {
-                            promptInputArea.clear();
-                            promptInputArea.requestInputFocus();
-                        });
-                    });
-                } else if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getStreamMode())) {
+                if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getStreamMode())) {
                     streamingPromptExecutor.execute(chatMessageContext, promptOutputPanel, () -> {
                         isRunningMap.put(project, false);
                         enableButtons.run();
@@ -200,17 +188,6 @@ public class ChatPromptExecutor {
             if (matchingPrompt.get().getName().equalsIgnoreCase(HELP_COMMAND)) {
                 promptOutputPanel.showHelpText();
                 return Optional.empty(); // Return empty since we handled the help case
-            }
-
-            // Check for the /find command
-            if (matchingPrompt.get().getName().equalsIgnoreCase(FIND_COMMAND)) {
-                if (Boolean.FALSE.equals(DevoxxGenieStateService.getInstance().getRagEnabled())) {
-                    NotificationUtil.sendNotification(chatMessageContext.getProject(),
-                            "The /find command requires RAG to be enabled in settings");
-                    return Optional.empty();
-                }
-                chatMessageContext.setCommandName(FIND_COMMAND);
-                return Optional.of(prompt.substring(6).trim());
             }
 
             // Set the command name and return the prompt

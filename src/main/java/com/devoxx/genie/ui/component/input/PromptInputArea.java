@@ -32,12 +32,7 @@ public class PromptInputArea extends JPanel {
         inputField.setWrapStyleWord(true);
         inputField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         inputField.addFocusListener(new PromptInputFocusListener(inputField));
-
-        if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getRagActivated())) {
-            inputField.setPlaceholder(resourceBundle.getString("rag.prompt.placeholder"));
-        } else {
-            inputField.setPlaceholder(resourceBundle.getString("prompt.placeholder"));
-        }
+        inputField.setPlaceholder(resourceBundle.getString("prompt.placeholder"));
 
         inputField.setRows(3);
 
@@ -46,17 +41,6 @@ public class PromptInputArea extends JPanel {
         inputAreaPanel.add(inputField, BorderLayout.CENTER);
 
         add(inputAreaPanel, BorderLayout.CENTER);
-
-        this.subscribeToRagStateChanges();
-    }
-
-    public void subscribeToRagStateChanges() {
-        MessageBusConnection connection = project.getMessageBus().connect();
-        connection.subscribe(AppTopics.RAG_ACTIVATED_CHANGED_TOPIC,
-                (RAGStateListener) isEnabled ->
-                    inputField.setPlaceholder(
-                            isEnabled ? resourceBundle.getString("rag.prompt.placeholder") : resourceBundle.getString("prompt.placeholder")
-                    ));
     }
 
     public String getText() {
