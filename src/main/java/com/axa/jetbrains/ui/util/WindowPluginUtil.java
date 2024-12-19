@@ -6,7 +6,7 @@ import com.intellij.openapi.wm.ToolWindowManager;
 
 public class WindowPluginUtil {
 
-    public static final String TOOL_WINDOW_ID = "DevoxxGenie";
+    public static final String TOOL_WINDOW_ID = "Axa AI plugin";
 
     /**
      * Open the tool window if it is not visible.
