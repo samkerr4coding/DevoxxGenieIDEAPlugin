@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 import static com.axa.jetbrains.model.Constant.MESSAGES;
 
 /**
- * The Devoxx Genie Tool Window Content.
+ * The Axa AI plugin Tool Window Content.
  */
 public class AxaAIToolWindowContent implements SettingsChangeListener, GlowingListener {
 
@@ -60,7 +60,7 @@ public class AxaAIToolWindowContent implements SettingsChangeListener, GlowingLi
     private final AnimatedGlowingBorder animatedBorder;
 
     /**
-     * The Devoxx Genie Tool Window Content constructor.
+     * The Axa AI Tool Window Content constructor.
      *
      * @param toolWindow the tool window
      */
