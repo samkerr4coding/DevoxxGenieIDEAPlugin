@@ -12,8 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.axa.jetbrains.ui.util.DevoxxGenieIconsUtil.DevoxxIcon;
-import static com.axa.jetbrains.ui.util.DevoxxGenieIconsUtil.TrashIcon;
+import static com.axa.jetbrains.ui.util.AxaAiIconsUtil.CompanyIcon;
+import static com.axa.jetbrains.ui.util.AxaAiIconsUtil.TrashIcon;
 
 public class UserPromptPanel extends BackgroundPanel {
 
@@ -52,7 +52,7 @@ public class UserPromptPanel extends BackgroundPanel {
      * Create the header label.
      */
     private @NotNull JBLabel createHeaderLabel() {
-        JBLabel createdOnLabel = new JBLabel("DevoxxGenie", DevoxxIcon, SwingConstants.LEFT);
+        JBLabel createdOnLabel = new JBLabel("Axa AI plugin", CompanyIcon, SwingConstants.LEFT);
         createdOnLabel.setFont(createdOnLabel.getFont().deriveFont(12f));
         createdOnLabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 10));
         return createdOnLabel;

@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import static com.axa.jetbrains.ui.util.DevoxxGenieIconsUtil.*;
+import static com.axa.jetbrains.ui.util.AxaAiIconsUtil.*;
 
 public class FileTypeIconUtil {
 

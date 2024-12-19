@@ -1,6 +1,6 @@
 package com.axa.jetbrains.ui.util;
 
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.intellij.ui.scale.JBUIScale;
 import org.jetbrains.annotations.NotNull;
 import java.util.stream.Collectors;
@@ -47,7 +47,7 @@ public class HelpUtil {
     }
 
     public static @NotNull String getCustomPromptCommands() {
-        return DevoxxGenieStateService.getInstance()
+        return AxaAiStateService.getInstance()
             .getCustomPrompts()
             .stream()
             .map(customPrompt -> "<li>/" + customPrompt.getName() + " : " + customPrompt.getPrompt() + "</li>")

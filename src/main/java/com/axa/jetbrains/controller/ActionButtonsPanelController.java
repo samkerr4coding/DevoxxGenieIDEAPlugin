@@ -5,12 +5,12 @@ import com.axa.jetbrains.controller.listener.PromptExecutionListener;
 import com.axa.jetbrains.model.LanguageModel;
 import com.axa.jetbrains.model.enumarations.ModelProvider;
 import com.axa.jetbrains.model.request.ChatMessageContext;
-import com.axa.jetbrains.service.DevoxxGenieSettingsService;
+import com.axa.jetbrains.service.AxaAiSettingsService;
 import com.axa.jetbrains.ui.EditorFileButtonManager;
 import com.axa.jetbrains.ui.component.input.PromptInputArea;
 import com.axa.jetbrains.ui.panel.ActionButtonsPanel;
 import com.axa.jetbrains.ui.panel.PromptOutputPanel;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.util.NotificationUtil;
 import com.axa.jetbrains.util.ChatMessageContextUtil;
 import com.intellij.openapi.project.Project;
@@ -97,7 +97,7 @@ public class ActionButtonsPanelController implements PromptExecutionListener {
     }
 
     private LanguageModel getSelectedLanguageModel() {
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
         LanguageModel selectedLanguageModel = (LanguageModel) modelNameComboBox.getSelectedItem();
 
         // If selectedLanguageModel is null, create a default one
@@ -125,7 +125,7 @@ public class ActionButtonsPanelController implements PromptExecutionListener {
      * @param stateService the state service
      * @return the default language model
      */
-    private LanguageModel createDefaultLanguageModel(@NotNull DevoxxGenieSettingsService stateService) {
+    private LanguageModel createDefaultLanguageModel(@NotNull AxaAiSettingsService stateService) {
         ModelProvider selectedProvider = (ModelProvider) modelProviderComboBox.getSelectedItem();
         if (selectedProvider != null &&
                 (selectedProvider.equals(LMStudio) ||

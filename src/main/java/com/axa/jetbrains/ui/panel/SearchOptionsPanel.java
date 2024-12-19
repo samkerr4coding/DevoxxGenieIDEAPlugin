@@ -2,7 +2,7 @@ package com.axa.jetbrains.ui.panel;
 
 import com.axa.jetbrains.ui.component.InputSwitch;
 import com.axa.jetbrains.ui.listener.GitDiffStateListener;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.topic.AppTopics;
 import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
@@ -24,7 +24,7 @@ public class SearchOptionsPanel extends JPanel {
         super(new FlowLayout(FlowLayout.LEFT, JBUI.scale(10), 0));
         setOpaque(false);
 
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
 
         // Create switches
         InputSwitch ragSwitch = new InputSwitch(
@@ -103,7 +103,7 @@ public class SearchOptionsPanel extends JPanel {
         repaint();
     }
 
-    private void updateInitialVisibility(@NotNull DevoxxGenieStateService stateService) {
+    private void updateInitialVisibility(@NotNull AxaAiStateService stateService) {
         // Set initial visibility based on state service
         switches.get(1).setVisible(stateService.getGitDiffEnabled());
 

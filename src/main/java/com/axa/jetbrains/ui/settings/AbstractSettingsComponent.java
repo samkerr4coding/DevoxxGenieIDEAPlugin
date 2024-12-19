@@ -18,7 +18,7 @@ public class AbstractSettingsComponent implements SettingsComponent {
     protected static final String LINK_EMOJI = "\uD83D\uDD17";
     protected static final String PASSWORD_EMOJI = "\uD83D\uDD11";
 
-    protected final DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+    protected final AxaAiStateService stateService = AxaAiStateService.getInstance();
 
     @Override
     public JPanel createPanel() {

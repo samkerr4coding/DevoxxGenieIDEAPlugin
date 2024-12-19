@@ -1,7 +1,7 @@
 package com.axa.jetbrains.service.projectscanner;
 import com.axa.jetbrains.model.ScanContentResult;
-import com.axa.jetbrains.service.DevoxxGenieSettingsService;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.service.AxaAiSettingsService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.util.GitignoreParser;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
@@ -288,13 +288,13 @@ public class ProjectScannerService {
     }
 
     private boolean shouldExcludeDirectory(@NotNull VirtualFile file) {
-        DevoxxGenieSettingsService settings = DevoxxGenieStateService.getInstance();
+        AxaAiSettingsService settings = AxaAiStateService.getInstance();
         return file.isDirectory() &&
                 (settings.getExcludedDirectories().contains(file.getName()) || shouldExcludeFile(file));
     }
 
     private boolean shouldExcludeFile(@NotNull VirtualFile file) {
-        DevoxxGenieSettingsService settings = DevoxxGenieStateService.getInstance();
+        AxaAiSettingsService settings = AxaAiStateService.getInstance();
 
         // Check if file is in excluded files list
         if (settings.getExcludedFiles().contains(file.getName())) {
@@ -311,7 +311,7 @@ public class ProjectScannerService {
     }
 
     private boolean shouldIncludeFile(@NotNull VirtualFile file) {
-        DevoxxGenieSettingsService settings = DevoxxGenieStateService.getInstance();
+        AxaAiSettingsService settings = AxaAiStateService.getInstance();
 
         // First check if file should be excluded
         if (shouldExcludeFile(file)) {
@@ -324,7 +324,7 @@ public class ProjectScannerService {
     }
 
     private String processFileContent(String content) {
-        if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getExcludeJavaDoc())) {
+        if (Boolean.TRUE.equals(AxaAiStateService.getInstance().getExcludeJavaDoc())) {
             return removeJavadoc(content);
         }
         return content;

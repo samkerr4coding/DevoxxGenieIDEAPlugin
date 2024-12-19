@@ -6,7 +6,7 @@ import com.axa.jetbrains.model.CustomPrompt;
 import com.axa.jetbrains.model.LanguageModel;
 import com.axa.jetbrains.model.enumarations.ModelProvider;
 
-public interface DevoxxGenieSettingsService {
+public interface AxaAiSettingsService {
 
     List<CustomPrompt> getCustomPrompts();
 

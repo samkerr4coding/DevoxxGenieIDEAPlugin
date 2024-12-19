@@ -1,6 +1,6 @@
 package com.axa.jetbrains.ui.settings.copyproject;
 
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.intellij.openapi.options.Configurable;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
@@ -10,7 +10,7 @@ import javax.swing.*;
 public class CopyProjectSettingsConfigurable implements Configurable {
 
     private CopyProjectSettingsComponent copyProjectSettingsComponent;
-    private final DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+    private final AxaAiStateService stateService = AxaAiStateService.getInstance();
 
     @Nls(capitalization = Nls.Capitalization.Title)
     @Override

@@ -4,7 +4,7 @@ import com.axa.jetbrains.model.request.ChatMessageContext;
 import com.axa.jetbrains.service.ChatMemoryService;
 import com.axa.jetbrains.service.MessageCreationService;
 import com.axa.jetbrains.ui.panel.PromptOutputPanel;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.util.NotificationUtil;
 import dev.langchain4j.data.message.SystemMessage;
 import dev.langchain4j.data.message.UserMessage;
@@ -56,7 +56,7 @@ public class StreamingPromptExecutor {
         if (chatMemoryService.isEmpty(chatMessageContext.getProject())) {
             chatMemoryService.add(
                 chatMessageContext.getProject(),
-                new SystemMessage(DevoxxGenieStateService.getInstance().getSystemPrompt())
+                new SystemMessage(AxaAiStateService.getInstance().getSystemPrompt())
             );
         }
 

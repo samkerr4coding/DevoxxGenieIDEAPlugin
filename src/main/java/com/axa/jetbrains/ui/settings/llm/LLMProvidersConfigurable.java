@@ -1,6 +1,6 @@
 package com.axa.jetbrains.ui.settings.llm;
 
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.topic.AppTopics;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.options.Configurable;
@@ -48,7 +48,7 @@ public class LLMProvidersConfigurable implements Configurable {
      */
     @Override
     public boolean isModified() {
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
 
         boolean isModified = false;
 
@@ -71,7 +71,7 @@ public class LLMProvidersConfigurable implements Configurable {
     public void apply() {
         boolean isModified = isModified();
 
-        DevoxxGenieStateService settings = DevoxxGenieStateService.getInstance();
+        AxaAiStateService settings = AxaAiStateService.getInstance();
 
         settings.setStreamMode(llmSettingsComponent.getStreamModeCheckBox().isSelected());
 
@@ -97,7 +97,7 @@ public class LLMProvidersConfigurable implements Configurable {
      */
     @Override
     public void reset() {
-        DevoxxGenieStateService settings = DevoxxGenieStateService.getInstance();
+        AxaAiStateService settings = AxaAiStateService.getInstance();
 
         llmSettingsComponent.getStreamModeCheckBox().setSelected(settings.getStreamMode());
 

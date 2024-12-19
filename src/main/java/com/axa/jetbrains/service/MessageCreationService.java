@@ -2,7 +2,7 @@ package com.axa.jetbrains.service;
 
 import com.axa.jetbrains.model.request.ChatMessageContext;
 import com.axa.jetbrains.model.request.EditorInfo;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.util.NotificationUtil;
 import com.axa.jetbrains.util.ChatMessageContextUtil;
 import com.intellij.openapi.application.ApplicationManager;
@@ -75,12 +75,12 @@ public class MessageCreationService {
 
         // Add system prompt for OpenAI o1 models
         if (ChatMessageContextUtil.isOpenAIo1Model(chatMessageContext.getLanguageModel())) {
-            String systemPrompt = DevoxxGenieStateService.getInstance().getSystemPrompt();
+            String systemPrompt = AxaAiStateService.getInstance().getSystemPrompt();
             stringBuilder.append("<SystemPrompt>").append(systemPrompt).append("</SystemPrompt>\n\n");
         }
 
         // If git diff is enabled, add special instructions
-        if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getGitDiffActivated())) {
+        if (Boolean.TRUE.equals(AxaAiStateService.getInstance().getGitDiffActivated())) {
             // Git diff is enabled, add special instructions at the beginning
             stringBuilder.append("<DiffInstructions>").append(GIT_DIFF_INSTRUCTIONS).append("</DiffInstructions>\n\n");
         }
@@ -156,7 +156,7 @@ public class MessageCreationService {
         StringBuilder stringBuilder = new StringBuilder();
 
         // If git diff is enabled, add special instructions at the beginning
-        if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getUseSimpleDiff())) {
+        if (Boolean.TRUE.equals(AxaAiStateService.getInstance().getUseSimpleDiff())) {
             stringBuilder.append("<DiffInstructions>").append(GIT_DIFF_INSTRUCTIONS).append("</DiffInstructions>\n\n");
         }
 

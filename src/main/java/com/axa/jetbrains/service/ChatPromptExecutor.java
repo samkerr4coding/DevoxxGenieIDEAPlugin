@@ -7,7 +7,7 @@ import com.axa.jetbrains.model.request.EditorInfo;
 import com.axa.jetbrains.service.streaming.StreamingPromptExecutor;
 import com.axa.jetbrains.ui.component.input.PromptInputArea;
 import com.axa.jetbrains.ui.panel.PromptOutputPanel;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.util.FileTypeUtil;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
@@ -64,7 +64,7 @@ public class ChatPromptExecutor {
         new Task.Backgroundable(chatMessageContext.getProject(), "Working...", true) {
             @Override
             public void run(@NotNull ProgressIndicator progressIndicator) {
-                if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getStreamMode())) {
+                if (Boolean.TRUE.equals(AxaAiStateService.getInstance().getStreamMode())) {
                     streamingPromptExecutor.execute(chatMessageContext, promptOutputPanel, () -> {
                         isRunningMap.put(project, false);
                         enableButtons.run();
@@ -173,7 +173,7 @@ public class ChatPromptExecutor {
     private Optional<String> getCommandFromPrompt(@NotNull ChatMessageContext chatMessageContext,
                                                   PromptOutputPanel promptOutputPanel) {
         String prompt = chatMessageContext.getUserPrompt().trim();
-        DevoxxGenieSettingsService settings = DevoxxGenieStateService.getInstance();
+        AxaAiSettingsService settings = AxaAiStateService.getInstance();
         List<CustomPrompt> customPrompts = settings.getCustomPrompts();
 
         Optional<CustomPrompt> matchingPrompt = customPrompts.stream()

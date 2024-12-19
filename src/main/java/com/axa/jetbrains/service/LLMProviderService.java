@@ -2,7 +2,7 @@ package com.axa.jetbrains.service;
 
 import com.axa.jetbrains.model.LanguageModel;
 import com.axa.jetbrains.model.enumarations.ModelProvider;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.intellij.openapi.application.ApplicationManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,7 +19,7 @@ public class LLMProviderService {
     private static final EnumMap<ModelProvider, Supplier<String>> providerKeyMap = new EnumMap<>(ModelProvider.class);
 
     static {
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
         providerKeyMap.put(AzureOpenAI, stateService::getAzureOpenAIKey);
     }
 
@@ -62,7 +62,7 @@ public class LLMProviderService {
     private @NotNull List<ModelProvider> getOptionalProviders() {
         List<ModelProvider> optionalModelProviders = new ArrayList<>();
 
-        if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getShowAzureOpenAIFields())) {
+        if (Boolean.TRUE.equals(AxaAiStateService.getInstance().getShowAzureOpenAIFields())) {
             optionalModelProviders.add(AzureOpenAI);
         }
 

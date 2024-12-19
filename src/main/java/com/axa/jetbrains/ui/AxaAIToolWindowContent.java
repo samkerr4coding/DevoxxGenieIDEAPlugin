@@ -11,7 +11,7 @@ import com.axa.jetbrains.ui.panel.ConversationPanel;
 import com.axa.jetbrains.ui.panel.LlmProviderPanel;
 import com.axa.jetbrains.ui.panel.PromptOutputPanel;
 import com.axa.jetbrains.ui.panel.SubmitPanel;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.topic.AppTopics;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Splitter;
@@ -67,9 +67,9 @@ public class AxaAIToolWindowContent implements SettingsChangeListener, GlowingLi
     public AxaAIToolWindowContent(@NotNull ToolWindow toolWindow) {
         project = toolWindow.getProject();
 
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
         stateService.addLoadListener(this::onStateLoaded);
-        stateService.loadState(DevoxxGenieStateService.getInstance());
+        stateService.loadState(AxaAiStateService.getInstance());
 
         setupMessageBusConnection(toolWindow);
 
@@ -192,7 +192,7 @@ public class AxaAIToolWindowContent implements SettingsChangeListener, GlowingLi
         if (e.getActionCommand().equals(Constant.COMBO_BOX_CHANGED) && isInitializationComplete) {
             LanguageModel selectedModel = (LanguageModel) llmProviderPanel.getModelNameComboBox().getSelectedItem();
             if (selectedModel != null) {
-                DevoxxGenieStateService.getInstance().setSelectedLanguageModel(project.getLocationHash(), selectedModel.getModelName());
+                AxaAiStateService.getInstance().setSelectedLanguageModel(project.getLocationHash(), selectedModel.getModelName());
                 submitPanel.getActionButtonsPanel().updateTokenUsage(selectedModel.getContextWindow());
             }
         }

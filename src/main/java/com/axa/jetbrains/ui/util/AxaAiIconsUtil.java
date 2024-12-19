@@ -4,7 +4,7 @@ import com.intellij.openapi.util.IconLoader;
 
 import javax.swing.*;
 
-public final class DevoxxGenieIconsUtil {
+public final class AxaAiIconsUtil {
 
     public static final Icon CogIcon = load("/icons/cog.svg");
     public static final Icon ClockIcon = load("/icons/clock.svg");
@@ -24,18 +24,18 @@ public final class DevoxxGenieIconsUtil {
     public static final Icon EnumIcon = load("/icons/enum.svg");
     public static final Icon ClassIcon = load("/icons/class.svg");
     public static final Icon TrashIcon = load("/icons/trash.svg");
-    public static final Icon DevoxxIcon = load("/icons/pluginIcon.svg");
+    public static final Icon CompanyIcon = load("/icons/pluginIcon.svg");
     public static final Icon CodeSnippetIcon = load("/icons/codeSnippet.svg");
     public static final Icon CopyIcon = load("/icons/copy.svg");
     public static final Icon InsertCodeIcon = load("/icons/insertCode.svg");
     public static final Icon RefreshIcon = load("/icons/refresh.svg");
     public static final Icon CreateIcon = load("/icons/event.svg");
 
-    private DevoxxGenieIconsUtil() {
+    private AxaAiIconsUtil() {
     }
 
     private static Icon load(String path) {
-        return IconLoader.getIcon(path, DevoxxGenieIconsUtil.class);
+        return IconLoader.getIcon(path, AxaAiIconsUtil.class);
     }
 
 }

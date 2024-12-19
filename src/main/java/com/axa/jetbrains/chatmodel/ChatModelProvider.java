@@ -5,8 +5,8 @@ import com.axa.jetbrains.model.Constant;
 import com.axa.jetbrains.model.LanguageModel;
 import com.axa.jetbrains.model.enumarations.ModelProvider;
 import com.axa.jetbrains.model.request.ChatMessageContext;
-import com.axa.jetbrains.service.DevoxxGenieSettingsService;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.service.AxaAiSettingsService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.chat.StreamingChatLanguageModel;
 import lombok.Setter;
@@ -44,7 +44,7 @@ public class ChatModelProvider {
 
     public @NotNull ChatModel initChatModel(@NotNull ChatMessageContext chatMessageContext) {
         ChatModel chatModel = new ChatModel();
-        DevoxxGenieSettingsService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiSettingsService stateService = AxaAiStateService.getInstance();
         setMaxOutputTokens(stateService, chatModel);
 
         chatModel.setTemperature(stateService.getTemperature());
@@ -58,7 +58,7 @@ public class ChatModelProvider {
         return chatModel;
     }
 
-    private static void setMaxOutputTokens(@NotNull DevoxxGenieSettingsService settingsState,
+    private static void setMaxOutputTokens(@NotNull AxaAiSettingsService settingsState,
                                            @NotNull ChatModel chatModel) {
         Integer maxOutputTokens = settingsState.getMaxOutputTokens();
         chatModel.setMaxTokens(maxOutputTokens != null ? maxOutputTokens : Constant.MAX_OUTPUT_TOKENS);

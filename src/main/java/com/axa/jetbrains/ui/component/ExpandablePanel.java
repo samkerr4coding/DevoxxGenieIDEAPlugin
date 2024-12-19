@@ -12,9 +12,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-import static com.axa.jetbrains.ui.util.DevoxxGenieColorsUtil.PROMPT_BG_COLOR;
-import static com.axa.jetbrains.ui.util.DevoxxGenieIconsUtil.ArrowExpand;
-import static com.axa.jetbrains.ui.util.DevoxxGenieIconsUtil.ArrowExpanded;
+import static com.axa.jetbrains.ui.util.AxaAiColorsUtil.PROMPT_BG_COLOR;
+import static com.axa.jetbrains.ui.util.AxaAiIconsUtil.ArrowExpand;
+import static com.axa.jetbrains.ui.util.AxaAiIconsUtil.ArrowExpanded;
 
 public class ExpandablePanel extends JBPanel<ExpandablePanel> {
 

@@ -1,7 +1,7 @@
 package com.axa.jetbrains.ui.panel.chatresponse;
 
 import com.axa.jetbrains.model.request.ChatMessageContext;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.util.DefaultLLMSettingsUtil;
 import com.intellij.ui.JBColor;
 import dev.langchain4j.model.output.TokenUsage;
@@ -27,7 +27,7 @@ public class MetricExecutionInfoPanel extends JPanel {
     }
 
     private boolean shouldShowExecutionTime(ChatMessageContext chatMessageContext) {
-        return Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getShowExecutionTime());
+        return Boolean.TRUE.equals(AxaAiStateService.getInstance().getShowExecutionTime());
     }
 
     private JLabel createMetricLabel(ChatMessageContext chatMessageContext) {

@@ -6,6 +6,6 @@ import com.intellij.openapi.project.Project;
 public class SettingsDialogUtil {
 
     public static void showSettingsDialog(Project project) {
-        ShowSettingsUtil.getInstance().showSettingsDialog(project, "DevoxxGenie");
+        ShowSettingsUtil.getInstance().showSettingsDialog(project, "AxaAiPlugin");
     }
 }

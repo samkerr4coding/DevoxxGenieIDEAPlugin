@@ -5,7 +5,7 @@ import com.axa.jetbrains.service.ChatMemoryService;
 import com.axa.jetbrains.service.ConversationStorageService;
 import com.axa.jetbrains.ui.component.JHoverButton;
 import com.axa.jetbrains.ui.listener.ConversationSelectionListener;
-import com.axa.jetbrains.ui.util.DevoxxGenieIconsUtil;
+import com.axa.jetbrains.ui.util.AxaAiIconsUtil;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
@@ -80,7 +80,7 @@ public class ConversationHistoryPanel extends JPanel {
         titleLabel.setBorder(JBUI.Borders.empty(5, 8));
         infoPanel.add(titleLabel, BorderLayout.CENTER);
 
-        JButton viewButton = new JHoverButton(DevoxxGenieIconsUtil.EyeIcon, true);
+        JButton viewButton = new JHoverButton(AxaAiIconsUtil.EyeIcon, true);
         viewButton.setToolTipText("View");
         viewButton.addActionListener(e -> conversationSelectionListener.onConversationSelected(conversation));
         infoPanel.add(viewButton, BorderLayout.WEST);

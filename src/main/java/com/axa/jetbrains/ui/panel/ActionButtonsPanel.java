@@ -36,7 +36,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static com.axa.jetbrains.model.Constant.*;
-import static com.axa.jetbrains.ui.util.DevoxxGenieIconsUtil.*;
+import static com.axa.jetbrains.ui.util.AxaAiIconsUtil.*;
 
 public class ActionButtonsPanel extends JPanel
         implements SettingsChangeListener, PromptSubmissionListener, GlowingListener, TokenCalculationListener {

@@ -2,8 +2,8 @@ package com.axa.jetbrains.ui.util;
 
 import java.awt.*;
 
-public class DevoxxGenieFontsUtil {
-    private DevoxxGenieFontsUtil() {
+public class AxaAiFontsUtil {
+    private AxaAiFontsUtil() {
     }
 
     public static final String SOURCE_CODE_PRO_FONT = "Source Code Pro";

@@ -3,7 +3,7 @@ package com.axa.jetbrains.action;
 import com.axa.jetbrains.controller.listener.TokenCalculationListener;
 import com.axa.jetbrains.model.enumarations.ModelProvider;
 import com.axa.jetbrains.service.TokenCalculationService;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.util.NotificationUtil;
 import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -25,7 +25,7 @@ public class CalcTokensForDirectoryAction extends DumbAwareAction implements Tok
             return;
         }
 
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
         ModelProvider selectedProvider = ModelProvider.fromString(stateService.getSelectedProvider(project.getLocationHash()));
 
         int maxTokens = stateService.getDefaultWindowContext();

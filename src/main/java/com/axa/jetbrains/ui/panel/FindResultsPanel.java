@@ -2,7 +2,7 @@ package com.axa.jetbrains.ui.panel;
 
 import com.axa.jetbrains.model.request.SemanticFile;
 import com.axa.jetbrains.ui.component.FileEntryComponent;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.components.JBScrollPane;
@@ -29,7 +29,7 @@ public class FindResultsPanel extends BackgroundPanel {
         header.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         headerPanel.add(header, BorderLayout.NORTH);
 
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
         // Add summary
         JLabel summary = new JLabel(String.format(
                 "Showing %d matches max. with relevance scores above %.0f%%",

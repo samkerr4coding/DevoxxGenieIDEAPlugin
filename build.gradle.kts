@@ -103,7 +103,7 @@ tasks {
         mergeServiceFiles()
         manifest {
             attributes(
-                "Implementation-Title" to "DevoxxGenie",
+                "Implementation-Title" to "Axa AI plugin",
                 "Implementation-Version" to version,
             )
         }

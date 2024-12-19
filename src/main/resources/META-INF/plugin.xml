@@ -6,7 +6,7 @@
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>DevoxxGenie</name>
+    <name>AxaAiPlugin</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor email="samir.kerroumi@axa.fr">Axa</vendor>
@@ -44,7 +44,7 @@
         <projectConfigurable parentId="tools"
                              id="com.axa.jetbrains.plugin"
                              instance="com.axa.jetbrains.ui.settings.llm.LLMProvidersConfigurable"
-                             displayName="DevoxxGenie"/>
+                             displayName="AxaAiPlugin"/>
 
         <projectConfigurable id="com.axa.jetbrains.LLMSettings"
                              parentId="com.axa.jetbrains.plugin"
@@ -71,12 +71,12 @@
                              instance="com.axa.jetbrains.ui.settings.costsettings.LanguageModelCostSettingsConfigurable"
                              displayName="Token Cost &amp; Context Window"/>
 
-        <toolWindow id="DevoxxGenie"
+        <toolWindow id="AxaAiPlugin"
                     anchor="right"
                     icon="/icons/pluginIcon.svg"
                     factoryClass="com.axa.jetbrains.ui.AxaAIToolWindowFactory"/>
 
-        <applicationService serviceImplementation="com.axa.jetbrains.ui.settings.DevoxxGenieStateService"/>
+        <applicationService serviceImplementation="com.axa.jetbrains.ui.settings.AxaAiStateService"/>
         <applicationService serviceImplementation="com.axa.jetbrains.service.ConversationStorageService"/>
         <applicationService serviceImplementation="com.axa.jetbrains.service.PromptExecutionService"/>
         <applicationService serviceImplementation="com.axa.jetbrains.service.ChatMemoryService"/>

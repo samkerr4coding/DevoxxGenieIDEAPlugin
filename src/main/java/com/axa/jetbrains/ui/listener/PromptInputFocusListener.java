@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-import static com.axa.jetbrains.ui.util.DevoxxGenieColorsUtil.PROMPT_INPUT_BORDER;
+import static com.axa.jetbrains.ui.util.AxaAiColorsUtil.PROMPT_INPUT_BORDER;
 
 public class PromptInputFocusListener extends FocusAdapter {
 

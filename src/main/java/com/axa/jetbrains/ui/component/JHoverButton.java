@@ -8,8 +8,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import static com.axa.jetbrains.ui.util.DevoxxGenieColorsUtil.HOVER_BG_COLOR;
-import static com.axa.jetbrains.ui.util.DevoxxGenieColorsUtil.TRANSPARENT_COLOR;
+import static com.axa.jetbrains.ui.util.AxaAiColorsUtil.HOVER_BG_COLOR;
+import static com.axa.jetbrains.ui.util.AxaAiColorsUtil.TRANSPARENT_COLOR;
 
 public class JHoverButton extends JButton {
 

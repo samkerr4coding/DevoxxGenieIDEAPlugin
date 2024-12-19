@@ -1,7 +1,7 @@
 package com.axa.jetbrains.ui.settings.gitmerge;
 
 import com.axa.jetbrains.ui.settings.AbstractSettingsComponent;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.ui.scale.JBUIScale;
 import com.intellij.util.ui.JBUI;
@@ -13,7 +13,7 @@ import java.awt.*;
 
 public class GitMergeSettingsComponent extends AbstractSettingsComponent {
 
-    private final DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+    private final AxaAiStateService stateService = AxaAiStateService.getInstance();
 
     @Getter
     private final ComboBox<GitDiffMode> gitDiffModeComboBox;

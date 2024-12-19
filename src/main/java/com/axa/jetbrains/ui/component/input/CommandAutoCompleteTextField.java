@@ -1,9 +1,9 @@
 package com.axa.jetbrains.ui.component.input;
 
 import com.axa.jetbrains.model.CustomPrompt;
-import com.axa.jetbrains.service.DevoxxGenieSettingsService;
+import com.axa.jetbrains.service.AxaAiSettingsService;
 import com.axa.jetbrains.ui.listener.CustomPromptChangeListener;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.topic.AppTopics;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
@@ -54,7 +54,7 @@ public class CommandAutoCompleteTextField extends JBTextArea implements CustomPr
         commands.add("/" + TDG_COMMAND);
         commands.add("/" + HELP_COMMAND);
 
-        DevoxxGenieSettingsService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiSettingsService stateService = AxaAiStateService.getInstance();
         for (CustomPrompt customPrompt : stateService.getCustomPrompts()) {
             commands.add("/" + customPrompt.getName());
         }

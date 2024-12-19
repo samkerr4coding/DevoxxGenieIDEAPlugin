@@ -6,8 +6,8 @@ import com.intellij.ui.components.JBPanel;
 
 import java.awt.*;
 
-import static com.axa.jetbrains.ui.util.DevoxxGenieColorsUtil.GRAY_COLOR;
-import static com.axa.jetbrains.ui.util.DevoxxGenieColorsUtil.PROMPT_BG_COLOR;
+import static com.axa.jetbrains.ui.util.AxaAiColorsUtil.GRAY_COLOR;
+import static com.axa.jetbrains.ui.util.AxaAiColorsUtil.PROMPT_BG_COLOR;
 
 public class WaitingPanel extends JBPanel<WaitingPanel> {
 

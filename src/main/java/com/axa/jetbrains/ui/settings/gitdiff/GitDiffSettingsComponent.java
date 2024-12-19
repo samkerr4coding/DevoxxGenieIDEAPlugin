@@ -1,7 +1,7 @@
 package com.axa.jetbrains.ui.settings.gitdiff;
 
 import com.axa.jetbrains.ui.settings.AbstractSettingsComponent;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.scale.JBUIScale;
@@ -17,7 +17,7 @@ import java.awt.*;
 public class GitDiffSettingsComponent extends AbstractSettingsComponent {
 
     private final JBCheckBox enableGitDiffCheckBox =
-            new JBCheckBox("Enable feature", DevoxxGenieStateService.getInstance().getGitDiffEnabled());
+            new JBCheckBox("Enable feature", AxaAiStateService.getInstance().getGitDiffEnabled());
 
     private final JLabel previewImageLabel = new JLabel();
 

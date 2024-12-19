@@ -3,11 +3,11 @@ package com.axa.jetbrains.action;
 import com.axa.jetbrains.model.LanguageModel;
 import com.axa.jetbrains.model.ScanContentResult;
 import com.axa.jetbrains.model.enumarations.ModelProvider;
-import com.axa.jetbrains.service.DevoxxGenieSettingsService;
+import com.axa.jetbrains.service.AxaAiSettingsService;
 import com.axa.jetbrains.service.FileListManager;
 import com.axa.jetbrains.service.LLMModelRegistryService;
 import com.axa.jetbrains.service.ProjectContentService;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.util.NotificationUtil;
 import com.axa.jetbrains.ui.util.WindowContextFormatterUtil;
 import com.intellij.openapi.actionSystem.ActionUpdateThread;
@@ -54,7 +54,7 @@ public class AddDirectoryAction extends DumbAwareAction {
     private void addDirectoryToContext(Project project, @NotNull VirtualFile directory) {
         FileListManager fileListManager = FileListManager.getInstance();
         List<VirtualFile> filesToAdd = new ArrayList<>();
-        DevoxxGenieSettingsService settings = DevoxxGenieStateService.getInstance();
+        AxaAiSettingsService settings = AxaAiStateService.getInstance();
 
         addFilesRecursively(directory, fileListManager, filesToAdd, settings);
 
@@ -87,7 +87,7 @@ public class AddDirectoryAction extends DumbAwareAction {
     }
 
     private void addFilesRecursively(@NotNull VirtualFile directory, FileListManager fileListManager,
-                                     List<VirtualFile> filesToAdd, DevoxxGenieSettingsService settings) {
+                                     List<VirtualFile> filesToAdd, AxaAiSettingsService settings) {
         VirtualFile[] children = directory.getChildren();
         for (VirtualFile child : children) {
             if (child.isDirectory()) {
@@ -109,7 +109,7 @@ public class AddDirectoryAction extends DumbAwareAction {
             NotificationUtil.sendNotification(project, "Directory content added to clipboard: " + directory.getName()));
     }
 
-    private boolean shouldIncludeFile(@NotNull VirtualFile file, @NotNull DevoxxGenieSettingsService settings) {
+    private boolean shouldIncludeFile(@NotNull VirtualFile file, @NotNull AxaAiSettingsService settings) {
         String extension = file.getExtension();
         return extension != null && settings.getIncludedFileExtensions().contains(extension.toLowerCase());
     }

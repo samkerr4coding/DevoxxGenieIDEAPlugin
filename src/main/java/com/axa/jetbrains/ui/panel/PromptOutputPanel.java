@@ -7,7 +7,7 @@ import com.axa.jetbrains.model.enumarations.ModelProvider;
 import com.axa.jetbrains.model.request.ChatMessageContext;
 import com.axa.jetbrains.ui.component.ExpandablePanel;
 import com.axa.jetbrains.ui.listener.CustomPromptChangeListener;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.util.HelpUtil;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
@@ -113,7 +113,7 @@ public class PromptOutputPanel extends JBPanel<PromptOutputPanel> implements Cus
 
         UserPromptPanel userPromptPanel = new UserPromptPanel(container, chatMessageContext);
 
-        if (Boolean.FALSE.equals(DevoxxGenieStateService.getInstance().getStreamMode())) {
+        if (Boolean.FALSE.equals(AxaAiStateService.getInstance().getStreamMode())) {
             waitingPanel.showMsg();
             userPromptPanel.add(waitingPanel, BorderLayout.SOUTH);
         }

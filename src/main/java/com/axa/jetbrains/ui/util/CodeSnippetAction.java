@@ -17,7 +17,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 
-import static com.axa.jetbrains.ui.util.DevoxxGenieIconsUtil.*;
+import static com.axa.jetbrains.ui.util.AxaAiIconsUtil.*;
 
 public class CodeSnippetAction {
 

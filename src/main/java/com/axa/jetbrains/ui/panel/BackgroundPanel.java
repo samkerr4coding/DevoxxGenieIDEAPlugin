@@ -6,7 +6,7 @@ import com.intellij.ui.components.JBPanel;
 import javax.swing.*;
 import java.awt.*;
 
-import static com.axa.jetbrains.ui.util.DevoxxGenieColorsUtil.GRAY_COLOR;
+import static com.axa.jetbrains.ui.util.AxaAiColorsUtil.GRAY_COLOR;
 
 public class BackgroundPanel extends JBPanel<BackgroundPanel> {
 

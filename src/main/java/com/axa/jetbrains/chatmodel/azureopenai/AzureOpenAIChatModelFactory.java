@@ -4,7 +4,7 @@ import com.axa.jetbrains.chatmodel.ChatModelFactory;
 import com.axa.jetbrains.model.ChatModel;
 import com.axa.jetbrains.model.LanguageModel;
 import com.axa.jetbrains.model.enumarations.ModelProvider;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import dev.langchain4j.model.azure.AzureOpenAiChatModel;
 import dev.langchain4j.model.azure.AzureOpenAiStreamingChatModel;
 import dev.langchain4j.model.chat.ChatLanguageModel;
@@ -24,11 +24,11 @@ public class AzureOpenAIChatModelFactory implements ChatModelFactory {
 
         final var builder = AzureOpenAiChatModel.builder()
                 .apiKey(getApiKey(MODEL_PROVIDER))
-                .deploymentName(DevoxxGenieStateService.getInstance().getAzureOpenAIDeployment())
+                .deploymentName(AxaAiStateService.getInstance().getAzureOpenAIDeployment())
                 .maxRetries(chatModel.getMaxRetries())
                 .timeout(Duration.ofSeconds(chatModel.getTimeout()))
                 .topP(isO1 ? 1.0 : chatModel.getTopP())
-                .endpoint(DevoxxGenieStateService.getInstance().getAzureOpenAIEndpoint());
+                .endpoint(AxaAiStateService.getInstance().getAzureOpenAIEndpoint());
 
         return builder.build();
     }
@@ -39,10 +39,10 @@ public class AzureOpenAIChatModelFactory implements ChatModelFactory {
 
         final var builder = AzureOpenAiStreamingChatModel.builder()
                 .apiKey(getApiKey(MODEL_PROVIDER))
-                .deploymentName(DevoxxGenieStateService.getInstance().getAzureOpenAIDeployment())
+                .deploymentName(AxaAiStateService.getInstance().getAzureOpenAIDeployment())
                 .timeout(Duration.ofSeconds(chatModel.getTimeout()))
                 .topP(isO1 ? 1.0 : chatModel.getTopP())
-                .endpoint(DevoxxGenieStateService.getInstance().getAzureOpenAIEndpoint());
+                .endpoint(AxaAiStateService.getInstance().getAzureOpenAIEndpoint());
 
         return builder.build();
     }
@@ -57,8 +57,8 @@ public class AzureOpenAIChatModelFactory implements ChatModelFactory {
     public List<LanguageModel> getModels() {
         return List.of(LanguageModel.builder()
                 .provider(MODEL_PROVIDER)
-                .modelName(DevoxxGenieStateService.getInstance().getAzureOpenAIDeployment())
-                .displayName(DevoxxGenieStateService.getInstance().getAzureOpenAIDeployment())
+                .modelName(AxaAiStateService.getInstance().getAzureOpenAIDeployment())
+                .displayName(AxaAiStateService.getInstance().getAzureOpenAIDeployment())
                 .inputCost(0.0)
                 .outputCost(0.0)
                 .contextWindow(0)

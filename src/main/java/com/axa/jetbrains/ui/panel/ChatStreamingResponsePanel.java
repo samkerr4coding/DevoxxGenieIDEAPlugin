@@ -15,7 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.axa.jetbrains.ui.util.DevoxxGenieFontsUtil.SourceCodeProFontPlan14;
+import static com.axa.jetbrains.ui.util.AxaAiFontsUtil.SourceCodeProFontPlan14;
 
 public class ChatStreamingResponsePanel extends BackgroundPanel {
 

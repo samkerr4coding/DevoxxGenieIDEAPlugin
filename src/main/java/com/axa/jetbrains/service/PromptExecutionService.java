@@ -6,7 +6,7 @@ import com.axa.jetbrains.model.enumarations.ModelProvider;
 import com.axa.jetbrains.model.request.ChatMessageContext;
 import com.axa.jetbrains.service.exception.ModelNotActiveException;
 import com.axa.jetbrains.service.exception.ProviderUnavailableException;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.util.ChatMessageContextUtil;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
@@ -62,7 +62,7 @@ public class PromptExecutionService {
                     ChatMemoryService
                             .getInstance()
                             .add(chatMessageContext.getProject(),
-                                 new SystemMessage(DevoxxGenieStateService.getInstance().getSystemPrompt() + Constant.MARKDOWN)
+                                 new SystemMessage(AxaAiStateService.getInstance().getSystemPrompt() + Constant.MARKDOWN)
                             );
                 }
             }

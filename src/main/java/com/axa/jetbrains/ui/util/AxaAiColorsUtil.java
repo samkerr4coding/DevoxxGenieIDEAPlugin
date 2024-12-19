@@ -5,7 +5,7 @@ import com.intellij.ui.JBColor;
 
 import java.awt.*;
 
-public class DevoxxGenieColorsUtil {
+public class AxaAiColorsUtil {
 
     public static final Color GRAY_REGULAR = Gray._100;
     public static final Color GRAY_DARK = Gray._85; // Darker for dark theme if desired

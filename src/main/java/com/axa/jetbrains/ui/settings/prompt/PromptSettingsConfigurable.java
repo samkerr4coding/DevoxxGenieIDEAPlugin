@@ -1,6 +1,6 @@
 package com.axa.jetbrains.ui.settings.prompt;
 
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.topic.AppTopics;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.options.Configurable;
@@ -45,7 +45,7 @@ public class PromptSettingsConfigurable implements Configurable {
      */
     @Override
     public boolean isModified() {
-        DevoxxGenieStateService settings = DevoxxGenieStateService.getInstance();
+        AxaAiStateService settings = AxaAiStateService.getInstance();
 
         boolean isModified = false;
 
@@ -61,7 +61,7 @@ public class PromptSettingsConfigurable implements Configurable {
      */
     @Override
     public void apply() {
-        DevoxxGenieStateService settings = DevoxxGenieStateService.getInstance();
+        AxaAiStateService settings = AxaAiStateService.getInstance();
         updateTextAreaIfModified(promptSettingsComponent.getSystemPromptField(), settings.getSystemPrompt(), settings::setSystemPrompt);
 
         settings.setCustomPrompts(promptSettingsComponent.getCustomPrompts());
@@ -78,7 +78,7 @@ public class PromptSettingsConfigurable implements Configurable {
      */
     @Override
     public void reset() {
-        DevoxxGenieStateService settings = DevoxxGenieStateService.getInstance();
+        AxaAiStateService settings = AxaAiStateService.getInstance();
         promptSettingsComponent.getSystemPromptField().setText(settings.getSystemPrompt());
 
         promptSettingsComponent.setCustomPrompts(settings.getCustomPrompts());

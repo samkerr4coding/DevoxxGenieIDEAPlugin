@@ -3,7 +3,7 @@ package com.axa.jetbrains.ui.settings.prompt;
 import com.axa.jetbrains.model.CustomPrompt;
 import com.axa.jetbrains.ui.dialog.CustomPromptDialog;
 import com.axa.jetbrains.ui.settings.AbstractSettingsComponent;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.topic.AppTopics;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
@@ -26,7 +26,7 @@ public class PromptSettingsComponent extends AbstractSettingsComponent {
     private static final int PROMPT_COLUMN = 1;
 
 
-    private final DevoxxGenieStateService settings;
+    private final AxaAiStateService settings;
     @Getter
     private final JTextArea systemPromptField = new JTextArea(stateService.getSystemPrompt());
     @Getter
@@ -50,7 +50,7 @@ public class PromptSettingsComponent extends AbstractSettingsComponent {
     public PromptSettingsComponent(Project project) {
         this.project = project;
 
-        settings = DevoxxGenieStateService.getInstance();
+        settings = AxaAiStateService.getInstance();
 
         setupCustomPromptsTable();
         setCustomPrompts(settings.getCustomPrompts());

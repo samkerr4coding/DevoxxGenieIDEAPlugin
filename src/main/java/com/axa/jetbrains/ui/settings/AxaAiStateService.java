@@ -3,7 +3,7 @@ package com.axa.jetbrains.ui.settings;
 import com.axa.jetbrains.model.CustomPrompt;
 import com.axa.jetbrains.model.LanguageModel;
 import com.axa.jetbrains.model.enumarations.ModelProvider;
-import com.axa.jetbrains.service.DevoxxGenieSettingsService;
+import com.axa.jetbrains.service.AxaAiSettingsService;
 import com.axa.jetbrains.util.DefaultLLMSettingsUtil;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
@@ -24,12 +24,12 @@ import static com.axa.jetbrains.model.Constant.*;
 @Setter
 @State(
         name = "com.axa.jetbrains.ui.SettingsState",
-        storages = @Storage("DevoxxGenieSettingsPlugin.xml")
+        storages = @Storage("AxaAiSettingsPlugin.xml")
 )
-public final class DevoxxGenieStateService implements PersistentStateComponent<DevoxxGenieStateService>, DevoxxGenieSettingsService {
+public final class AxaAiStateService implements PersistentStateComponent<AxaAiStateService>, AxaAiSettingsService {
 
-    public static DevoxxGenieStateService getInstance() {
-        return ApplicationManager.getApplication().getService(DevoxxGenieStateService.class);
+    public static AxaAiStateService getInstance() {
+        return ApplicationManager.getApplication().getService(AxaAiStateService.class);
     }
 
     // Default excluded files for scan project
@@ -114,7 +114,7 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
     @Setter(AccessLevel.NONE)
     private List<Runnable> loadListeners = new ArrayList<>();
 
-    public DevoxxGenieStateService() {
+    public AxaAiStateService() {
         initializeUserPrompt();
     }
 
@@ -126,12 +126,12 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
     }
 
     @Override
-    public DevoxxGenieStateService getState() {
+    public AxaAiStateService getState() {
         return this;
     }
 
     @Override
-    public void loadState(@NotNull DevoxxGenieStateService state) {
+    public void loadState(@NotNull AxaAiStateService state) {
         XmlSerializerUtil.copyBean(state, this);
         initializeDefaultCostsIfEmpty();
         initializeUserPrompt();

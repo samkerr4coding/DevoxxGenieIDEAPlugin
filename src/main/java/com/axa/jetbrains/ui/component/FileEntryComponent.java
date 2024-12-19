@@ -2,7 +2,7 @@ package com.axa.jetbrains.ui.component;
 
 import com.axa.jetbrains.model.request.SemanticFile;
 import com.axa.jetbrains.ui.listener.FileRemoveListener;
-import com.axa.jetbrains.ui.util.DevoxxGenieIconsUtil;
+import com.axa.jetbrains.ui.util.AxaAiIconsUtil;
 import com.axa.jetbrains.ui.util.FileTypeIconUtil;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Editor;
@@ -20,7 +20,7 @@ import java.awt.*;
 import java.io.File;
 
 import static com.axa.jetbrains.action.AddSnippetAction.*;
-import static com.axa.jetbrains.ui.util.DevoxxGenieIconsUtil.CloseSmalllIcon;
+import static com.axa.jetbrains.ui.util.AxaAiIconsUtil.CloseSmalllIcon;
 
 /**
  * Class uses to display a file entry in the list of files with label and remove button.
@@ -65,7 +65,7 @@ public class FileEntryComponent extends JPanel {
 
         Icon fileTypeIcon = virtualFile != null ?
                 FileTypeIconUtil.getFileTypeIcon(virtualFile) :
-                DevoxxGenieIconsUtil.CodeSnippetIcon;
+                AxaAiIconsUtil.CodeSnippetIcon;
 
         JButton fileNameButton = new JButton(
                 extractFileName(semanticFile.filePath()) + " (relevance score " + String.format("%2.2f", semanticFile.score() * 100) + "%)", fileTypeIcon);

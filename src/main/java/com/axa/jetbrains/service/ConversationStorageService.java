@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@State(name = "DevoxxGenieConversationStorage", storages = @Storage("axa-ai-jetbrain-plugin-conversations.xml"))
+@State(name = "AxaAiConversationStorage", storages = @Storage("axa-ai-jetbrain-conversations.xml"))
 public final class ConversationStorageService implements PersistentStateComponent<ConversationStorageService.State> {
 
     private final State myState = new State();

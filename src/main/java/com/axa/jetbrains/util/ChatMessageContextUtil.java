@@ -10,7 +10,7 @@ import com.axa.jetbrains.model.request.EditorInfo;
 import com.axa.jetbrains.service.FileListManager;
 import com.axa.jetbrains.service.MessageCreationService;
 import com.axa.jetbrains.ui.EditorFileButtonManager;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.util.EditorUtil;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
@@ -37,7 +37,7 @@ public class ChatMessageContextUtil {
                                                             String projectContext,
                                                             boolean isProjectContextAdded) {
 
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
 
         ChatMessageContext context = ChatMessageContext.builder()
             .project(project)

@@ -1,6 +1,6 @@
 package com.axa.jetbrains.ui.settings.gitmerge;
 
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.intellij.openapi.options.Configurable;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
@@ -39,14 +39,14 @@ public class GitMergeSettingsConfigurable implements Configurable {
 
     @Override
     public boolean isModified() {
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
         GitDiffMode currentMode = determineCurrentMode(stateService);
         return currentMode != diffSettingsComponent.getGitDiffModeComboBox().getSelectedItem();
     }
 
     @Override
     public void apply() {
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
         GitDiffMode selectedMode = (GitDiffMode) diffSettingsComponent.getGitDiffModeComboBox().getSelectedItem();
 
         stateService.setUseSimpleDiff(selectedMode == GitDiffMode.SIMPLE_DIFF);
@@ -54,12 +54,12 @@ public class GitMergeSettingsConfigurable implements Configurable {
 
     @Override
     public void reset() {
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
         GitDiffMode currentMode = determineCurrentMode(stateService);
         diffSettingsComponent.getGitDiffModeComboBox().setSelectedItem(currentMode);
     }
 
-    private GitDiffMode determineCurrentMode(@NotNull DevoxxGenieStateService stateService) {
+    private GitDiffMode determineCurrentMode(@NotNull AxaAiStateService stateService) {
         if (Boolean.TRUE.equals(stateService.getUseSimpleDiff())) {
             return GitDiffMode.SIMPLE_DIFF;
         }

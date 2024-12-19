@@ -1,7 +1,7 @@
 package com.axa.jetbrains.ui.settings.copyproject;
 
 import com.axa.jetbrains.ui.settings.AbstractSettingsComponent;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.intellij.ui.AddEditRemovePanel;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBTextField;
@@ -24,7 +24,7 @@ public class CopyProjectSettingsComponent extends AbstractSettingsComponent {
     private final JCheckBox useGitIgnoreCheckBox;
 
     public CopyProjectSettingsComponent() {
-        DevoxxGenieStateService settings = DevoxxGenieStateService.getInstance();
+        AxaAiStateService settings = AxaAiStateService.getInstance();
         useGitIgnoreCheckBox = new JCheckBox("Use .gitignore", settings.getUseGitIgnore());
         excludedDirectoriesPanel = new ExcludedDirectoriesPanel(settings.getExcludedDirectories());
         excludedFilesPanel = new ExcludedFilesPanel(settings.getExcludedFiles());  // Initialize the new panel

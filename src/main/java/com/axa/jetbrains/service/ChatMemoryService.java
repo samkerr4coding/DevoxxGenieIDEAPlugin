@@ -4,7 +4,7 @@ import com.axa.jetbrains.model.LanguageModel;
 import com.axa.jetbrains.model.conversation.Conversation;
 import com.axa.jetbrains.model.request.ChatMessageContext;
 import com.axa.jetbrains.ui.listener.ChatMemorySizeListener;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.topic.AppTopics;
 import com.axa.jetbrains.util.ChatMessageContextUtil;
 import com.intellij.openapi.application.ApplicationManager;
@@ -32,7 +32,7 @@ public class ChatMemoryService implements ChatMemorySizeListener {
     }
 
     public void init(@NotNull Project project) {
-        createChatMemory(project.getLocationHash(), DevoxxGenieStateService.getInstance().getChatMemorySize());
+        createChatMemory(project.getLocationHash(), AxaAiStateService.getInstance().getChatMemorySize());
         createChangeListener();
     }
 

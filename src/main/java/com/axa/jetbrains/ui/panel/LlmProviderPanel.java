@@ -9,7 +9,7 @@ import com.axa.jetbrains.service.LLMProviderService;
 import com.axa.jetbrains.ui.component.JHoverButton;
 import com.axa.jetbrains.ui.listener.LLMSettingsChangeListener;
 import com.axa.jetbrains.ui.renderer.ModelInfoRenderer;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.util.NotificationUtil;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
@@ -28,7 +28,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-import static com.axa.jetbrains.ui.util.DevoxxGenieIconsUtil.RefreshIcon;
+import static com.axa.jetbrains.ui.util.AxaAiIconsUtil.RefreshIcon;
 
 public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSettingsChangeListener {
 
@@ -79,8 +79,8 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
         modelProviderComboBox.setMaximumSize(comboBoxSize);
         modelNameComboBox.setMaximumSize(comboBoxSize);
 
-        lastSelectedProvider = DevoxxGenieStateService.getInstance().getSelectedProvider(project.getLocationHash());
-        lastSelectedLanguageModel = DevoxxGenieStateService.getInstance().getSelectedLanguageModel(project.getLocationHash());
+        lastSelectedProvider = AxaAiStateService.getInstance().getSelectedProvider(project.getLocationHash());
+        lastSelectedLanguageModel = AxaAiStateService.getInstance().getSelectedLanguageModel(project.getLocationHash());
 
         restoreLastSelectedProvider();
         restoreLastSelectedLanguageModel();
@@ -113,7 +113,7 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
      */
     public void addModelProvidersToComboBox() {
         LLMProviderService providerService = LLMProviderService.getInstance();
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
 
         providerService.getAvailableModelProviders().stream()
                 .filter(provider -> switch (provider) {
@@ -250,7 +250,7 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
     public void setLastSelectedProvider() {
         ModelProvider modelProvider = modelProviderComboBox.getItemAt(0);
         if (modelProvider != null) {
-            DevoxxGenieStateService.getInstance().setSelectedProvider(project.getLocationHash(), modelProvider.getName());
+            AxaAiStateService.getInstance().setSelectedProvider(project.getLocationHash(), modelProvider.getName());
             updateModelNamesComboBox(modelProvider.getName());
         }
     }
@@ -258,7 +258,7 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
     @Override
     public void llmSettingsChanged() {
         updateModelNamesComboBox(
-                DevoxxGenieStateService.getInstance().getSelectedProvider(project.getLocationHash())
+                AxaAiStateService.getInstance().getSelectedProvider(project.getLocationHash())
         );
     }
 
@@ -273,7 +273,7 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
         isUpdatingModelNames = true;
 
         try {
-            DevoxxGenieStateService stateInstance = DevoxxGenieStateService.getInstance();
+            AxaAiStateService stateInstance = AxaAiStateService.getInstance();
             JComboBox<?> comboBox = (JComboBox<?>) e.getSource();
             ModelProvider modelProvider = (ModelProvider) comboBox.getSelectedItem();
             if (modelProvider != null) {

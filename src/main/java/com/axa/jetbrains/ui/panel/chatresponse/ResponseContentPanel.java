@@ -2,7 +2,7 @@ package com.axa.jetbrains.ui.panel.chatresponse;
 
 import com.axa.jetbrains.model.request.ChatMessageContext;
 import com.axa.jetbrains.ui.processor.NodeProcessorFactory;
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import org.commonmark.node.Block;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
@@ -36,7 +36,7 @@ public class ResponseContentPanel extends JPanel {
     }
 
     private boolean isGitDiffEnabled() {
-        return Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getGitDiffActivated());
+        return Boolean.TRUE.equals(AxaAiStateService.getInstance().getGitDiffActivated());
     }
 
     private void addDocumentNodesToPanel(Node document) {

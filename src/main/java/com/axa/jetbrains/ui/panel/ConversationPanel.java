@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 import java.awt.*;
 
-import static com.axa.jetbrains.ui.util.DevoxxGenieIconsUtil.*;
+import static com.axa.jetbrains.ui.util.AxaAiIconsUtil.*;
 import static com.axa.jetbrains.ui.util.TimestampUtil.getCurrentTimestamp;
 
 @Getter

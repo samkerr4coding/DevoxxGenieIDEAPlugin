@@ -1,6 +1,6 @@
 package com.axa.jetbrains.ui.settings.gitdiff;
 
-import com.axa.jetbrains.ui.settings.DevoxxGenieStateService;
+import com.axa.jetbrains.ui.settings.AxaAiStateService;
 import com.axa.jetbrains.ui.topic.AppTopics;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.options.Configurable;
@@ -40,14 +40,14 @@ public class GitDiffSettingsConfigurable implements Configurable {
 
     @Override
     public boolean isModified() {
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
 
         return diffSettingsComponent.getEnableGitDiffCheckBox().isSelected() != stateService.getGitDiffEnabled();
     }
 
     @Override
     public void apply() {
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
 
         boolean oldValue = stateService.getGitDiffEnabled();
         boolean newValue = diffSettingsComponent.getEnableGitDiffCheckBox().isSelected();
@@ -63,7 +63,7 @@ public class GitDiffSettingsConfigurable implements Configurable {
 
     @Override
     public void reset() {
-        DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
+        AxaAiStateService stateService = AxaAiStateService.getInstance();
         diffSettingsComponent.getEnableGitDiffCheckBox().setSelected(stateService.getGitDiffEnabled());
     }
 }
