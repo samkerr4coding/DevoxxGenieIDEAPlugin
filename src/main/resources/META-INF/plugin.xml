@@ -515,7 +515,7 @@
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <notificationGroup id="com.devoxx.genie.notifications" displayType="BALLOON" />
+        <notificationGroup id="com.devoxx.genie.notifications" displayType="BALLOON"/>
         <postStartupActivity implementation="com.devoxx.genie.service.PostStartupActivity"/>
     </extensions>
 
@@ -526,7 +526,7 @@
                 text="Add To Prompt Context"
                 icon="/icons/pluginIcon.svg"
                 description="Add code snippet to context window">
-            <add-to-group group-id="EditorPopupMenu" anchor="last" />
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
 
         <action id="DevoxxGenie.AddFilesAction"
@@ -550,7 +550,8 @@
                 text="Copy Directory to Clipboard"
                 icon="/icons/pluginIcon.svg"
                 description="Copy the selected directory content to clipboard">
-            <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="AddDirectoryToContextWindow"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="after"
+                          relative-to-action="AddDirectoryToContextWindow"/>
         </action>
 
         <action id="CalcTokenDirectory"
@@ -561,5 +562,10 @@
             <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="CopyDirectoryToClipboard"/>
         </action>
 
+        <action id="DevoxxGenie.InlineChatAction" class="com.devoxx.genie.action.InlineChatAction"
+                text="Open Inline Chat">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt G"/>
+        </action>
     </actions>
 </idea-plugin>

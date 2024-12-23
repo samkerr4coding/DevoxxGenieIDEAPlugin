@@ -35,7 +35,6 @@ public class AnthropicChatModelFactoryTest extends AbstractLightPlatformTestCase
     public void testCreateChatModel() {
         // Instance of the class containing the method to be tested
         var factory = new AnthropicChatModelFactory();
-
         // Create a dummy ChatModel
         ChatModel chatModel = new ChatModel();
         chatModel.setModelName("dummy-model");
