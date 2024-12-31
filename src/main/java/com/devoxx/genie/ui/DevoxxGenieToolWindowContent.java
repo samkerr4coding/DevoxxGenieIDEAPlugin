@@ -45,9 +45,6 @@ public class DevoxxGenieToolWindowContent implements SettingsChangeListener, Glo
     @Getter
     private final JPanel contentPanel = new JPanel();
     @Getter
-    private final ConversationStorageService storageService = ConversationStorageService.getInstance();
-    private final AnimatedGlowingBorder animatedBorder;
-    @Getter
     private LlmProviderPanel llmProviderPanel;
     @Getter
     private ConversationPanel conversationPanel;
@@ -56,6 +53,10 @@ public class DevoxxGenieToolWindowContent implements SettingsChangeListener, Glo
     @Getter
     private PromptOutputPanel promptOutputPanel;
     private boolean isInitializationComplete = false;
+
+    @Getter
+    private final ConversationStorageService storageService = ConversationStorageService.getInstance();
+    private final AnimatedGlowingBorder animatedBorder;
 
     /**
      * The Devoxx Genie Tool Window Content constructor.
