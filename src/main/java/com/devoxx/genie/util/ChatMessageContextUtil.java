@@ -4,7 +4,7 @@ import com.devoxx.genie.chatmodel.ChatModelProvider;
 import com.devoxx.genie.error.ErrorHandler;
 import com.devoxx.genie.model.Constant;
 import com.devoxx.genie.model.LanguageModel;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.model.request.ChatMessageContext;
 import com.devoxx.genie.model.request.EditorInfo;
 import com.devoxx.genie.service.FileListManager;
@@ -128,7 +128,7 @@ public class ChatMessageContextUtil {
      */
     public static boolean isOpenAIo1Model(LanguageModel languageModel) {
         return languageModel != null &&
-                languageModel.getProvider() == ModelProvider.OpenAI &&
+                languageModel.getProvider() == ModelProvider.AzureOpenAI &&
                 languageModel.getModelName() != null &&
                 languageModel.getModelName().toLowerCase().startsWith("o1-");
     }

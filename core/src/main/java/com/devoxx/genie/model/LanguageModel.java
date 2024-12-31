@@ -1,6 +1,6 @@
 package com.devoxx.genie.model;
 
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import lombok.Builder;
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
@@ -17,19 +17,17 @@ public class LanguageModel implements Comparable<LanguageModel> {
     private boolean apiKeyUsed;
     private double inputCost;
     private double outputCost;
+    private int contextWindow;
+    private String deprecationDate;
     private int inputMaxTokens;
-    private int outputMaxTokens;
+
+    private Boolean hasChatCompletions;
+    private Boolean hasChatCompletionsVision;
+    private Boolean hasCompletions;
+    private Boolean hasEmbeddings;
 
     public LanguageModel() {
-
-        this(ModelProvider.OpenAI,
-                "",
-                "",
-                false,
-                0.0,
-                0.0,
-                0,
-                0);
+        this(ModelProvider.AzureOpenAI, "", "", true, 0.0, 0.0, 0, null, 0,  null, null, null, null);
     }
 
     public LanguageModel(ModelProvider provider,
@@ -38,16 +36,36 @@ public class LanguageModel implements Comparable<LanguageModel> {
                          boolean apiKeyUsed,
                          double inputCost,
                          double outputCost,
+                         int contextWindow) {
+        this(provider, modelName, displayName, apiKeyUsed, inputCost, outputCost, contextWindow, null, 0,  null, null, null, null);
+    }
+
+    public LanguageModel(ModelProvider provider,
+                         String modelName,
+                         String displayName,
+                         boolean apiKeyUsed,
+                         double inputCost,
+                         double outputCost,
+                         int contextWindow,
+                         String deprecationDate,
                          int inputMaxTokens,
-                         int outputMaxTokens) {
+                         Boolean hasChatCompletions,
+                         Boolean hasChatCompletionsVision,
+                         Boolean hasCompletions,
+                         Boolean hasEmbeddings) {
         this.provider = provider;
         this.modelName = modelName;
         this.displayName = displayName;
         this.apiKeyUsed = apiKeyUsed;
         this.inputCost = inputCost;
         this.outputCost = outputCost;
+        this.contextWindow = contextWindow;
+        this.deprecationDate = deprecationDate;
         this.inputMaxTokens = inputMaxTokens;
-        this.outputMaxTokens = outputMaxTokens;
+        this.hasChatCompletions = hasChatCompletions;
+        this.hasChatCompletionsVision = hasChatCompletionsVision;
+        this.hasCompletions = hasCompletions;
+        this.hasEmbeddings = hasEmbeddings;
     }
 
     @Override
