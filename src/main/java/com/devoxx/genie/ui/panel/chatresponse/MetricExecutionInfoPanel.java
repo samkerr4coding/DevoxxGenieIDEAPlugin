@@ -1,6 +1,6 @@
 package com.devoxx.genie.ui.panel.chatresponse;
 
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.model.request.ChatMessageContext;
 import com.devoxx.genie.service.ProjectContentService;
 import com.devoxx.genie.util.DefaultLLMSettingsUtil;

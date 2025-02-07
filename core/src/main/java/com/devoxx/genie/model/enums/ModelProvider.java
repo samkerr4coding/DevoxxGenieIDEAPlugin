@@ -1,4 +1,4 @@
-package com.devoxx.genie.model.enumarations;
+package com.devoxx.genie.model.enums;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
@@ -8,24 +8,8 @@ import java.util.List;
 
 @Getter
 public enum ModelProvider {
-    CustomOpenAI("CustomOpenAI", Type.LOCAL),
-    GPT4All("GPT4All", Type.LOCAL),
-    Jan("Jan", Type.LOCAL),
-    LLaMA("LLaMA.c++", Type.LOCAL),
-    LMStudio("LMStudio", Type.LOCAL),
     Ollama("Ollama", Type.LOCAL),
-
-    OpenAI("OpenAI", Type.CLOUD),
-    Anthropic("Anthropic", Type.CLOUD),
-    Mistral("Mistral", Type.CLOUD),
-    Groq("Groq", Type.CLOUD),
-    DeepInfra("DeepInfra", Type.CLOUD),
-    Google("Google", Type.CLOUD),
-    OpenRouter("OpenRouter", Type.CLOUD),
-    DeepSeek("DeepSeek", Type.CLOUD),
-
-    AzureOpenAI("AzureOpenAI", Type.OPTIONAL),
-    Bedrock("Bedrock", Type.OPTIONAL);
+    AzureOpenAI("Axa Secure GPT", Type.OPTIONAL);
 
     public enum Type {
         LOCAL, // Local Providers

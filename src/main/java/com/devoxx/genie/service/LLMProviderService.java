@@ -1,7 +1,7 @@
 package com.devoxx.genie.service;
 
 import com.devoxx.genie.model.LanguageModel;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.ui.settings.DevoxxGenieStateService;
 import com.intellij.openapi.application.ApplicationManager;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import static com.devoxx.genie.model.enumarations.ModelProvider.*;
+import static com.devoxx.genie.model.enums.ModelProvider.AzureOpenAI;
+import static com.devoxx.genie.model.enums.ModelProvider.Type;
 
 public class LLMProviderService {
 
@@ -20,16 +21,7 @@ public class LLMProviderService {
 
     static {
         DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
-        providerKeyMap.put(OpenAI, stateService::getOpenAIKey);
-        providerKeyMap.put(Anthropic, stateService::getAnthropicKey);
-        providerKeyMap.put(Mistral, stateService::getMistralKey);
-        providerKeyMap.put(Groq, stateService::getGroqKey);
-        providerKeyMap.put(DeepInfra, stateService::getDeepInfraKey);
-        providerKeyMap.put(Google, stateService::getGeminiKey);
-        providerKeyMap.put(DeepSeek, stateService::getDeepSeekKey);
-        providerKeyMap.put(OpenRouter, stateService::getOpenRouterKey);
         providerKeyMap.put(AzureOpenAI, stateService::getAzureOpenAIKey);
-        providerKeyMap.put(Bedrock, stateService::getAwsSecretKey);
     }
 
     @NotNull
@@ -70,16 +62,7 @@ public class LLMProviderService {
 
     private @NotNull List<ModelProvider> getOptionalProviders() {
         List<ModelProvider> optionalModelProviders = new ArrayList<>();
-
-        if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getShowAzureOpenAIFields())) {
-            optionalModelProviders.add(AzureOpenAI);
-        }
-
-        if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getShowAwsFields())) {
-            optionalModelProviders.add(Bedrock);
-        }
-
-
+        optionalModelProviders.add(AzureOpenAI);
         return optionalModelProviders;
     }
 

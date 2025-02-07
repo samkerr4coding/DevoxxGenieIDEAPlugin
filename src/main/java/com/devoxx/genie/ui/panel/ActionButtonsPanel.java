@@ -5,7 +5,7 @@ import com.devoxx.genie.controller.ProjectContextController;
 import com.devoxx.genie.controller.listener.TokenCalculationListener;
 import com.devoxx.genie.model.Constant;
 import com.devoxx.genie.model.LanguageModel;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.ui.DevoxxGenieToolWindowContent;
 import com.devoxx.genie.ui.EditorFileButtonManager;
 import com.devoxx.genie.ui.component.ContextPopupMenu;

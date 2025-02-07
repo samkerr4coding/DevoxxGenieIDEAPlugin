@@ -4,7 +4,7 @@ import com.devoxx.genie.chatmodel.ChatModelProvider;
 import com.devoxx.genie.controller.listener.PromptExecutionListener;
 import com.devoxx.genie.model.ChatContextParameters;
 import com.devoxx.genie.model.LanguageModel;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.model.request.ChatMessageContext;
 import com.devoxx.genie.service.DevoxxGenieSettingsService;
 import com.devoxx.genie.ui.EditorFileButtonManager;
@@ -19,7 +19,7 @@ import com.intellij.openapi.ui.ComboBox;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static com.devoxx.genie.model.enumarations.ModelProvider.*;
+import static com.devoxx.genie.model.enums.ModelProvider.AzureOpenAI;
 
 public class ActionButtonsPanelController implements PromptExecutionListener {
 
@@ -131,37 +131,16 @@ public class ActionButtonsPanelController implements PromptExecutionListener {
      */
     private LanguageModel createDefaultLanguageModel(@NotNull DevoxxGenieSettingsService stateService) {
         ModelProvider selectedProvider = (ModelProvider) modelProviderComboBox.getSelectedItem();
-        if (selectedProvider != null &&
-                (selectedProvider.equals(LMStudio) ||
-                 selectedProvider.equals(GPT4All) ||
-                 selectedProvider.equals(LLaMA))) {
-            return LanguageModel.builder()
-                    .provider(selectedProvider)
-                    .apiKeyUsed(false)
-                    .inputCost(0)
-                    .outputCost(0)
-                    .inputMaxTokens(4096)
-                    .build();
-        } else if (selectedProvider != null && selectedProvider.getName().equals("CustomOpenAI")) {
-            return LanguageModel.builder()
-                    .provider(selectedProvider)
-                    .apiKeyUsed(true)
-                    .modelName(!stateService.getCustomOpenAIModelName().isBlank() ? stateService.getCustomOpenAIModelName() : "na")
-                    .inputCost(0)
-                    .outputCost(0)
-                    .inputMaxTokens(4096)
-                    .build();
-        } else {
-            String modelName = stateService.getSelectedLanguageModel(project.getLocationHash());
-            return LanguageModel.builder()
-                    .provider(selectedProvider != null ? selectedProvider : OpenAI)
-                    .modelName(modelName)
-                    .apiKeyUsed(false)
-                    .inputCost(0)
-                    .outputCost(0)
-                    .inputMaxTokens(128_000)
-                    .build();
-        }
+
+        String modelName = stateService.getSelectedLanguageModel(project.getLocationHash());
+        return LanguageModel.builder()
+                .provider(selectedProvider != null ? selectedProvider : AzureOpenAI)
+                .modelName(modelName)
+                .apiKeyUsed(false)
+                .inputCost(0)
+                .outputCost(0)
+                .inputMaxTokens(128_000)
+                .build();
     }
 
     /**

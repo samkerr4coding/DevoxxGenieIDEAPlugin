@@ -1,7 +1,7 @@
 package com.devoxx.genie.action;
 
 import com.devoxx.genie.controller.listener.TokenCalculationListener;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.service.TokenCalculationService;
 import com.devoxx.genie.ui.settings.DevoxxGenieStateService;
 import com.devoxx.genie.ui.util.NotificationUtil;

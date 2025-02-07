@@ -1,7 +1,7 @@
 package com.devoxx.genie.controller;
 
 import com.devoxx.genie.model.LanguageModel;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.service.ProjectContentService;
 import com.devoxx.genie.ui.panel.ActionButtonsPanel;
 import com.devoxx.genie.ui.util.NotificationUtil;
@@ -13,7 +13,7 @@ import com.knuddels.jtokkit.api.EncodingType;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
-import static com.devoxx.genie.model.enumarations.ModelProvider.*;
+import static com.devoxx.genie.model.enums.ModelProvider.Ollama;
 
 public class ProjectContextController {
 
@@ -97,18 +97,7 @@ public class ProjectContextController {
     }
 
     private boolean isSupportedProvider(@NotNull ModelProvider modelProvider) {
-        return modelProvider.equals(Google) ||
-                modelProvider.equals(Anthropic) ||
-                modelProvider.equals(OpenAI) ||
-                modelProvider.equals(Mistral) ||
-                modelProvider.equals(DeepSeek) ||
-                modelProvider.equals(OpenRouter) ||
-                modelProvider.equals(DeepInfra) ||
-                modelProvider.equals(Ollama) ||
-                modelProvider.equals(Jan) ||
-                modelProvider.equals(Bedrock) ||
-                modelProvider.equals(LMStudio);
-                // Note : NOT GPT4All because the selected context window is not provided in JSON model response
+        return modelProvider.equals(Ollama);
     }
 
     private int getWindowContext() {

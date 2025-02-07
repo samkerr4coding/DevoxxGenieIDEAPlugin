@@ -2,9 +2,7 @@ package com.devoxx.genie.service;
 
 import com.devoxx.genie.error.ErrorHandler;
 import com.devoxx.genie.model.Constant;
-import com.devoxx.genie.model.enumarations.ModelProvider;
 import com.devoxx.genie.model.request.ChatMessageContext;
-import com.devoxx.genie.service.exception.ModelNotActiveException;
 import com.devoxx.genie.service.exception.ProviderUnavailableException;
 import com.devoxx.genie.ui.settings.DevoxxGenieStateService;
 import com.devoxx.genie.util.ChatMessageContextUtil;
@@ -141,9 +139,7 @@ public class PromptExecutionService {
             return chatResponse;
 
         } catch (Exception e) {
-            if (chatMessageContext.getLanguageModel().getProvider().equals(ModelProvider.Jan)) {
-                throw new ModelNotActiveException("Selected Jan model is not active. Download and make it active or add API Key in Jan settings.");
-            }
+
             ChatMemoryService.getInstance().removeLast(chatMessageContext.getProject());
             throw new ProviderUnavailableException(e.getMessage());
         }
