@@ -4,7 +4,7 @@ import com.devoxx.genie.chatmodel.ChatModelFactory;
 import com.devoxx.genie.chatmodel.ChatModelFactoryProvider;
 import com.devoxx.genie.model.Constant;
 import com.devoxx.genie.model.LanguageModel;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.service.LLMProviderService;
 import com.devoxx.genie.ui.listener.LLMSettingsChangeListener;
 import com.devoxx.genie.ui.renderer.ModelInfoRenderer;
@@ -114,22 +114,8 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
 
         providerService.getAvailableModelProviders().stream()
                 .filter(provider -> switch (provider) {
-                    case Ollama -> stateService.isOllamaEnabled();
-                    case LMStudio -> stateService.isLmStudioEnabled();
-                    case GPT4All -> stateService.isGpt4AllEnabled();
-                    case Jan -> stateService.isJanEnabled();
-                    case LLaMA -> stateService.isLlamaCPPEnabled();
-                    case CustomOpenAI -> stateService.isCustomOpenAIUrlEnabled();
-                    case OpenAI -> stateService.isOpenAIEnabled();
-                    case Mistral -> stateService.isMistralEnabled();
-                    case Anthropic -> stateService.isAnthropicEnabled();
-                    case Groq -> stateService.isGroqEnabled();
-                    case DeepInfra -> stateService.isDeepInfraEnabled();
-                    case Google -> stateService.isGoogleEnabled();
-                    case DeepSeek -> stateService.isDeepSeekEnabled();
-                    case OpenRouter -> stateService.isOpenRouterEnabled();
-                    case AzureOpenAI -> stateService.isAzureOpenAIEnabled();
-                    case Bedrock -> stateService.isAwsEnabled();
+                    case Ollama -> stateService.isOllamaAllowed();
+                    case AzureOpenAI -> true;
                 })
                 .distinct()
                 .sorted(Comparator.comparing(ModelProvider::getName))
@@ -145,10 +131,7 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
             return;
         }
 
-        if (selectedProvider == ModelProvider.LMStudio ||
-            selectedProvider == ModelProvider.Ollama ||
-            selectedProvider == ModelProvider.Jan ||
-            selectedProvider == ModelProvider.GPT4All) {
+        if (selectedProvider == ModelProvider.Ollama) {
             ApplicationManager.getApplication().invokeLater(() -> {
                 refreshButton.setEnabled(false);
 
@@ -163,9 +146,9 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
                 refreshButton.setEnabled(true);
 
             });
-        } else {
+        }  else {
             NotificationUtil.sendNotification(project,
-                    "Model refresh is only available for LMStudio, Ollama, GPT4All and Jan providers.");
+                    "Model refresh is only available for Ollama providers.");
         }
     }
 

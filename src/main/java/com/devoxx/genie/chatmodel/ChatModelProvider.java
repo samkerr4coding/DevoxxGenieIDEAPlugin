@@ -3,7 +3,7 @@ package com.devoxx.genie.chatmodel;
 import com.devoxx.genie.model.ChatModel;
 import com.devoxx.genie.model.Constant;
 import com.devoxx.genie.model.LanguageModel;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.model.request.ChatMessageContext;
 import com.devoxx.genie.service.DevoxxGenieSettingsService;
 import com.devoxx.genie.ui.settings.DevoxxGenieStateService;
@@ -12,6 +12,7 @@ import dev.langchain4j.model.chat.StreamingChatLanguageModel;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.devoxx.genie.chatmodel.ChatModelFactory.TEST_MODEL;
@@ -19,7 +20,7 @@ import static com.devoxx.genie.chatmodel.ChatModelFactory.TEST_MODEL;
 @Setter
 public class ChatModelProvider {
 
-    private static final ModelProvider DEFAULT_PROVIDER = ModelProvider.OpenAI;
+    private static final ModelProvider DEFAULT_PROVIDER = ModelProvider.AzureOpenAI;
 
     public ChatLanguageModel getChatLanguageModel(@NotNull ChatMessageContext chatMessageContext) {
         ChatModel chatModel = initChatModel(chatMessageContext);
@@ -62,23 +63,8 @@ public class ChatModelProvider {
                                  ChatModel chatModel,
                                  DevoxxGenieSettingsService stateService) {
         // Set base URL for local providers
-        switch (languageModel.getProvider()) {
-            case LMStudio:
-                chatModel.setBaseUrl(stateService.getLmstudioModelUrl());
-                break;
-            case Ollama:
-                chatModel.setBaseUrl(stateService.getOllamaModelUrl());
-                break;
-            case GPT4All:
-                chatModel.setBaseUrl(stateService.getGpt4allModelUrl());
-                break;
-            case LLaMA:
-                chatModel.setBaseUrl(stateService.getLlamaCPPUrl());
-                break;
-            case CustomOpenAI:
-                chatModel.setBaseUrl(stateService.getCustomOpenAIUrl());
-                break;
-            // Add other local providers as needed
+        if (Objects.requireNonNull(languageModel.getProvider()) == ModelProvider.Ollama) {
+            chatModel.setBaseUrl(stateService.getOllamaModelUrl());
         }
     }
 

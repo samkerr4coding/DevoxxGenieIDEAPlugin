@@ -1,7 +1,7 @@
 package com.devoxx.genie.service;
 
 import com.devoxx.genie.model.ScanContentResult;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.service.projectscanner.ProjectScannerService;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
@@ -77,11 +77,8 @@ public class ProjectContentService {
 
     public static Encoding getEncodingForProvider(@NotNull ModelProvider provider) {
         return switch (provider) {
-            case OpenAI, Anthropic, Google, AzureOpenAI ->
+            case AzureOpenAI ->
                 Encodings.newDefaultEncodingRegistry().getEncoding(EncodingType.CL100K_BASE);
-            case Mistral, DeepInfra, Groq, DeepSeek, OpenRouter ->
-                // These often use the Llama tokenizer or similar
-                Encodings.newDefaultEncodingRegistry().getEncoding(EncodingType.R50K_BASE);
             default ->
                 // Default to cl100k_base for unknown providers
                 Encodings.newDefaultEncodingRegistry().getEncoding(EncodingType.CL100K_BASE);

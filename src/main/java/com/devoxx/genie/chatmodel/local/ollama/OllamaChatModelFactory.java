@@ -3,7 +3,7 @@ package com.devoxx.genie.chatmodel.local.ollama;
 import com.devoxx.genie.chatmodel.local.LocalChatModelFactory;
 import com.devoxx.genie.model.ChatModel;
 import com.devoxx.genie.model.LanguageModel;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.model.ollama.OllamaModelEntryDTO;
 import com.devoxx.genie.ui.settings.DevoxxGenieStateService;
 import dev.langchain4j.model.chat.ChatLanguageModel;

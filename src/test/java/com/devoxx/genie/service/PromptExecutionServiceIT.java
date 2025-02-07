@@ -2,7 +2,7 @@ package com.devoxx.genie.service;
 
 import com.devoxx.genie.chatmodel.AbstractLightPlatformTestCase;
 import com.devoxx.genie.model.LanguageModel;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.model.request.ChatMessageContext;
 import dev.langchain4j.model.anthropic.AnthropicChatModel;
 import dev.langchain4j.model.chat.ChatLanguageModel;
@@ -14,7 +14,6 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
-
 
 import java.util.concurrent.CompletableFuture;
 

@@ -1,11 +1,9 @@
 package com.devoxx.genie.chatmodel.local;
 
-import com.devoxx.genie.model.lmstudio.LMStudioModelEntryDTO;
 import com.devoxx.genie.service.exception.UnsuccessfulRequestException;
 import com.devoxx.genie.ui.settings.DevoxxGenieStateService;
 import com.devoxx.genie.util.HttpClientProvider;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -43,16 +41,6 @@ public class LocalLLMProviderUtil {
             }
 
             String json = response.body().string();
-
-            // Special handling for LM Studio
-            if (responseType.equals(LMStudioModelEntryDTO[].class)) {
-                JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
-                if (jsonElement.isJsonObject() && jsonElement.getAsJsonObject().has("data")) {
-                    return gson.fromJson(jsonElement.getAsJsonObject().get("data"), responseType);
-                } else {
-                    return responseType.cast(new LMStudioModelEntryDTO[0]);
-                }
-            }
 
             return gson.fromJson(json, responseType);
         }

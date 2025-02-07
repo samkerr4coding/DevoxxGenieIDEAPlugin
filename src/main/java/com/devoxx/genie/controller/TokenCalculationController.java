@@ -2,7 +2,7 @@ package com.devoxx.genie.controller;
 
 import com.devoxx.genie.controller.listener.TokenCalculationListener;
 import com.devoxx.genie.model.LanguageModel;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.service.TokenCalculationService;
 import com.devoxx.genie.ui.util.NotificationUtil;
 import com.devoxx.genie.util.DefaultLLMSettingsUtil;
@@ -15,7 +15,7 @@ public class TokenCalculationController {
     private final ComboBox<ModelProvider> modelProviderComboBox;
     private final ComboBox<LanguageModel> modelNameComboBox;
     private final TokenCalculationService tokenCalculationService;
-    private TokenCalculationListener listener;
+    private final TokenCalculationListener listener;
 
     public TokenCalculationController(Project project,
                                       ComboBox<ModelProvider> modelProviderComboBox,

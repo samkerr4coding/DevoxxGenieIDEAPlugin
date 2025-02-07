@@ -2,7 +2,7 @@ package com.devoxx.genie.ui.settings;
 
 import com.devoxx.genie.model.CustomPrompt;
 import com.devoxx.genie.model.LanguageModel;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.service.DevoxxGenieSettingsService;
 import com.devoxx.genie.util.DefaultLLMSettingsUtil;
 import com.intellij.openapi.application.ApplicationManager;
@@ -49,7 +49,6 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
             new CustomPrompt(EXPLAIN_COMMAND, EXPLAIN_PROMPT),
             new CustomPrompt(REVIEW_COMMAND, REVIEW_PROMPT),
             new CustomPrompt(TDG_COMMAND, TDG_PROMPT),
-            new CustomPrompt(FIND_COMMAND, FIND_PROMPT),
             new CustomPrompt(HELP_COMMAND, HELP_PROMPT)
     );
 
@@ -74,56 +73,12 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
     // Git Diff features
     private Boolean useSimpleDiff = false;
 
-    // Local LLM URL fields
-    private String ollamaModelUrl = OLLAMA_MODEL_URL;
-    private String lmstudioModelUrl = LMSTUDIO_MODEL_URL;
-    private String gpt4allModelUrl = GPT4ALL_MODEL_URL;
-    private String janModelUrl = JAN_MODEL_URL;
-    private String llamaCPPUrl = LLAMA_CPP_MODEL_URL;
-
-    // Local custom OpenAI-compliant LLM fields
-    private String customOpenAIUrl = "";
-    private String customOpenAIModelName = "";
-    private String customOpenAIApiKey = "";
-
-    // Local LLM Providers
-    private boolean isOllamaEnabled = true;
-    private boolean isLmStudioEnabled = true;
-    private boolean isGpt4AllEnabled = true;
-    private boolean isJanEnabled = true;
-    private boolean isLlamaCPPEnabled = true;
-
-    // Local custom OpenAI-compliant LLM fields
-    private boolean isCustomOpenAIUrlEnabled = false;
-    private boolean isCustomOpenAIModelNameEnabled = false;
-    private boolean isCustomOpenAIApiKeyEnabled = false;
-
-    // Remote LLM Providers
-    private boolean isOpenAIEnabled = false;
-    private boolean isMistralEnabled = false;
-    private boolean isAnthropicEnabled = false;
-    private boolean isGroqEnabled = false;
-    private boolean isDeepInfraEnabled = false;
-    private boolean isGoogleEnabled = false;
-    private boolean isDeepSeekEnabled = false;
-    private boolean isOpenRouterEnabled = false;
-    private boolean isAWSEnabled = false;
-
-    // LLM API Keys
-    private String openAIKey = "";
-    private String mistralKey = "";
-    private String anthropicKey = "";
-    private String groqKey = "";
-    private String deepInfraKey = "";
-    private String geminiKey = "";
-    private String deepSeekKey = "";
-    private String openRouterKey = "";
+    // Cloud secureGPT LLM URL fields
     private String azureOpenAIEndpoint = "";
     private String azureOpenAIDeployment = "";
     private String azureOpenAIKey = "";
-    private String awsAccessKeyId = "";
-    private String awsSecretKey = "";
-    private String awsRegion = "";
+    private String azureOpenAIClientSecret = "";
+    private String azureOpenAIClientID = "";
 
     // Search API Keys
     private Boolean isWebSearchEnabled = ENABLE_WEB_SEARCH;
@@ -135,6 +90,13 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
     private String googleCSIKey = "";
     private String tavilySearchKey = "";
     private Integer maxSearchResults = MAX_SEARCH_RESULTS;
+
+
+    // Local LLM URL fields
+    private String ollamaModelUrl = OLLAMA_MODEL_URL;
+
+    //is Ollama allowed
+    private Boolean ollamaAllowed = Boolean.TRUE;
 
     // Last selected language model
     private Map<String, String> lastSelectedProvider;
@@ -158,9 +120,6 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
     private String explainPrompt = EXPLAIN_PROMPT;
 
     private Boolean excludeJavaDoc = false;
-
-    private Boolean showAzureOpenAIFields = false;
-    private Boolean showAwsFields = false;
 
     @Setter
     private Boolean useGitIgnore = true;
@@ -271,27 +230,14 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
         }
     }
 
-    public boolean isAzureOpenAIEnabled() {
-        return showAzureOpenAIFields &&
-                !azureOpenAIKey.isEmpty() &&
-                !azureOpenAIEndpoint.isEmpty() &&
-                !azureOpenAIDeployment.isEmpty();
-    }
-
-    public boolean isAwsEnabled() {
-        return showAwsFields &&
-                !awsAccessKeyId.isEmpty() &&
-                !awsSecretKey.isEmpty() &&
-                !awsRegion.isEmpty();
-    }
-
     public @Nullable String getConfigValue(@NotNull String key) {
         return switch (key) {
-            case "janModelUrl" -> getJanModelUrl();
-            case "gpt4allModelUrl" -> getGpt4allModelUrl();
-            case "lmStudioModelUrl" -> getLmstudioModelUrl();
             case "ollamaModelUrl" -> getOllamaModelUrl();
             default -> null;
         };
+    }
+
+    public Boolean isOllamaAllowed() {
+        return ollamaAllowed;
     }
 }

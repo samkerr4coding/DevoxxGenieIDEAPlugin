@@ -3,7 +3,7 @@ package com.devoxx.genie.ui.panel;
 import com.devoxx.genie.model.LanguageModel;
 import com.devoxx.genie.model.conversation.ChatMessage;
 import com.devoxx.genie.model.conversation.Conversation;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.model.request.ChatMessageContext;
 import com.devoxx.genie.ui.component.ExpandablePanel;
 import com.devoxx.genie.ui.listener.CustomPromptChangeListener;

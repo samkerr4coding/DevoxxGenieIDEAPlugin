@@ -3,7 +3,7 @@ package com.devoxx.genie.service;
 import com.devoxx.genie.controller.listener.TokenCalculationListener;
 import com.devoxx.genie.model.LanguageModel;
 import com.devoxx.genie.model.ScanContentResult;
-import com.devoxx.genie.model.enumarations.ModelProvider;
+import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.ui.util.NotificationUtil;
 import com.devoxx.genie.ui.util.WindowContextFormatterUtil;
 import com.devoxx.genie.util.DefaultLLMSettingsUtil;
