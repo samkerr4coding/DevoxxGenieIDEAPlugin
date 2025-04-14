@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class PromptSettingsConfigurable implements Configurable {
@@ -55,10 +56,20 @@ public class PromptSettingsConfigurable implements Configurable {
 
         isModified |= !settings.getCustomPrompts().equals(promptSettingsComponent.getCustomPrompts());
 
+        // Check DEVOXXGENIE.md generation options
+        isModified |= settings.getCreateDevoxxGenieMd() != promptSettingsComponent.getCreateDevoxxGenieMdCheckbox().isSelected();
+        isModified |= settings.getIncludeProjectTree() != promptSettingsComponent.getIncludeProjectTreeCheckbox().isSelected();
+        isModified |= !Objects.equals(settings.getProjectTreeDepth(), promptSettingsComponent.getProjectTreeDepthSpinner().getValue());
+        isModified |= settings.getUseDevoxxGenieMdInPrompt() != promptSettingsComponent.getUseDevoxxGenieMdInPromptCheckbox().isSelected();
+
         // Check shortcuts
         isModified |= !settings.getSubmitShortcutWindows().equals(promptSettingsComponent.getSubmitShortcutWindows());
         isModified |= !settings.getSubmitShortcutMac().equals(promptSettingsComponent.getSubmitShortcutMac());
         isModified |= !settings.getSubmitShortcutLinux().equals(promptSettingsComponent.getSubmitShortcutLinux());
+
+        isModified |= !settings.getNewlineShortcutWindows().equals(promptSettingsComponent.getNewlineShortcutWindows());
+        isModified |= !settings.getNewlineShortcutMac().equals(promptSettingsComponent.getNewlineShortcutMac());
+        isModified |= !settings.getNewlineShortcutLinux().equals(promptSettingsComponent.getNewlineShortcutLinux());
 
         return isModified;
     }
@@ -73,7 +84,13 @@ public class PromptSettingsConfigurable implements Configurable {
 
         settings.setCustomPrompts(promptSettingsComponent.getCustomPrompts());
 
-        // Apply shortcuts and notify changes
+        // Apply DEVOXXGENIE.md generation options
+        settings.setCreateDevoxxGenieMd(promptSettingsComponent.getCreateDevoxxGenieMdCheckbox().isSelected());
+        settings.setIncludeProjectTree(promptSettingsComponent.getIncludeProjectTreeCheckbox().isSelected());
+        settings.setProjectTreeDepth((Integer) promptSettingsComponent.getProjectTreeDepthSpinner().getValue());
+        settings.setUseDevoxxGenieMdInPrompt(promptSettingsComponent.getUseDevoxxGenieMdInPromptCheckbox().isSelected());
+
+        // Apply submit shortcuts and notify changes
         String newShortcut = null;
         if (SystemInfo.isWindows) {
             settings.setSubmitShortcutWindows(promptSettingsComponent.getSubmitShortcutWindows());
@@ -93,6 +110,26 @@ public class PromptSettingsConfigurable implements Configurable {
                     .onShortcutChanged(newShortcut);
         }
 
+        // Apply newline shortcuts and notify changes
+        String newNewlineShortcut = null;
+        if (SystemInfo.isWindows) {
+            settings.setNewlineShortcutWindows(promptSettingsComponent.getNewlineShortcutWindows());
+            newNewlineShortcut = promptSettingsComponent.getNewlineShortcutWindows();
+        } else if (SystemInfo.isMac) {
+            settings.setNewlineShortcutMac(promptSettingsComponent.getNewlineShortcutMac());
+            newNewlineShortcut = promptSettingsComponent.getNewlineShortcutMac();
+        } else {
+            settings.setNewlineShortcutLinux(promptSettingsComponent.getNewlineShortcutLinux());
+            newNewlineShortcut = promptSettingsComponent.getNewlineShortcutLinux();
+        }
+
+        // Notify newline shortcut change
+        if (newNewlineShortcut != null) {
+            project.getMessageBus()
+                    .syncPublisher(AppTopics.NEWLINE_SHORTCUT_CHANGED_TOPIC)
+                    .onNewlineShortcutChanged(newNewlineShortcut);
+        }
+
         project.getMessageBus()
                 .syncPublisher(AppTopics.CUSTOM_PROMPT_CHANGED_TOPIC)
                 .onCustomPromptsChanged();
@@ -107,6 +144,19 @@ public class PromptSettingsConfigurable implements Configurable {
         promptSettingsComponent.getSystemPromptField().setText(settings.getSystemPrompt());
 
         promptSettingsComponent.setCustomPrompts(settings.getCustomPrompts());
+
+        // Reset DEVOXXGENIE.md generation options
+        promptSettingsComponent.getCreateDevoxxGenieMdCheckbox().setSelected(settings.getCreateDevoxxGenieMd());
+        promptSettingsComponent.getIncludeProjectTreeCheckbox().setSelected(settings.getIncludeProjectTree());
+        promptSettingsComponent.getProjectTreeDepthSpinner().setValue(settings.getProjectTreeDepth());
+        promptSettingsComponent.getUseDevoxxGenieMdInPromptCheckbox().setSelected(settings.getUseDevoxxGenieMdInPrompt());
+
+        // Reset UI state based on checkbox selections
+        boolean createMdEnabled = settings.getCreateDevoxxGenieMd();
+        promptSettingsComponent.getIncludeProjectTreeCheckbox().setEnabled(createMdEnabled);
+        promptSettingsComponent.getProjectTreeDepthSpinner().setEnabled(createMdEnabled && settings.getIncludeProjectTree());
+        promptSettingsComponent.getUseDevoxxGenieMdInPromptCheckbox().setEnabled(createMdEnabled);
+        promptSettingsComponent.getCreateDevoxxGenieMdButton().setEnabled(createMdEnabled);
 
         promptSettingsComponent.setSubmitShortcutWindows(settings.getSubmitShortcutWindows());
         promptSettingsComponent.setSubmitShortcutMac(settings.getSubmitShortcutMac());

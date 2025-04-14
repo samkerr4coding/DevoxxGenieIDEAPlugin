@@ -46,7 +46,8 @@ public class AzureOpenAIChatModelFactory implements ChatModelFactory {
                 .maxRetries(chatModel.getMaxRetries())
                 .timeout(Duration.ofSeconds(chatModel.getTimeout()))
                 .topP(isO1 ? 1.0 : chatModel.getTopP())
-                .endpoint(DevoxxGenieStateService.getInstance().getAzureOpenAIEndpoint());
+                .endpoint(DevoxxGenieStateService.getInstance().getAzureOpenAIEndpoint())
+                .listeners(getListener());
 
         return builder.build();
     }

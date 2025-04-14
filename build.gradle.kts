@@ -11,6 +11,8 @@ version = "0.4.19"
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://www.jetbrains.com/intellij-repository/releases") }
+    maven { url = uri("https://cache-redirector.jetbrains.com/intellij-dependencies") }
 }
 
 tasks.register("updateProperties") {
@@ -48,15 +50,15 @@ tasks.named("buildPlugin") {
 }
 
 dependencies {
-    val lg4j_version = "1.0.0-beta1"
+    val lg4j_version = "1.0.0-beta3"
 
     // Add the dependencies for the core module
     implementation(project(":core"))
 
+    // Langchain4J dependencies
     implementation("dev.langchain4j:langchain4j:$lg4j_version")
     implementation("dev.langchain4j:langchain4j-ollama:$lg4j_version")
-    implementation("dev.langchain4j:langchain4j-local-ai:$lg4j_version")
-    implementation("dev.langchain4j:langchain4j-open-ai:1.0.0-alpha2-SNAPSHOT")
+    implementation("dev.langchain4j:langchain4j-open-ai:$lg4j_version")
     implementation("dev.langchain4j:langchain4j-anthropic:$lg4j_version")
     implementation("dev.langchain4j:langchain4j-bedrock:$lg4j_version")
     implementation("dev.langchain4j:langchain4j-mistral-ai:$lg4j_version")
@@ -65,19 +67,25 @@ dependencies {
     implementation("dev.langchain4j:langchain4j-web-search-engine-tavily:$lg4j_version")
     implementation("dev.langchain4j:langchain4j-azure-open-ai:$lg4j_version")
     implementation("dev.langchain4j:langchain4j-chroma:$lg4j_version")
+    implementation("dev.langchain4j:langchain4j-mcp:$lg4j_version")
 
+    // Retrofit dependencies
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("org.xerial:sqlite-jdbc:3.48.0.0")
 
+    // Docker dependencies
     implementation("com.github.docker-java:docker-java:3.4.0")
     implementation("com.github.docker-java:docker-java-transport-httpclient5:3.4.0")
 
+    // JTokkit dependencies
     implementation("com.knuddels:jtokkit:1.0.0")
     implementation("org.commonmark:commonmark:0.22.0")
 
-    // TDG : Add Log4j dependencies
-    implementation("org.apache.logging.log4j:log4j-api:2.22.1")
-    implementation("org.apache.logging.log4j:log4j-core:2.22.1")
+    // Logging
+    implementation("ch.qos.logback:logback-classic:1.4.12")
+
+    // GitIgnore Reader
+    implementation("nl.basjes.gitignore:gitignore-reader:1.6.0")
 
     // TDG : Add other TDG dependencies
     implementation("org.junit.jupiter:junit-jupiter-api:5.11.3")
@@ -93,10 +101,10 @@ dependencies {
     testImplementation("org.mockito:mockito-inline:5.2.0")
     testImplementation("org.mockito:mockito-junit-jupiter:5.15.2")
     testImplementation("org.assertj:assertj-core:3.26.0")
+    testImplementation("io.github.cdimascio:java-dotenv:5.2.2")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.0-M2")
-
 }
 
 // Configure Gradle IntelliJ Plugin
@@ -104,6 +112,7 @@ dependencies {
 intellij {
     version.set("2023.3.4")
     type.set("IC")
+    plugins.set(listOf("com.intellij.java"))
 }
 
 tasks {

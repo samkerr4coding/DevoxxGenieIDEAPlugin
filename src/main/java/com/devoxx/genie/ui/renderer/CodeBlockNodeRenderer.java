@@ -4,6 +4,7 @@ import com.devoxx.genie.ui.util.LanguageGuesser;
 import com.intellij.lang.Language;
 import com.intellij.lang.documentation.DocumentationSettings;
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.editor.colors.EditorColorsManager;
 import com.intellij.openapi.editor.richcopy.HtmlSyntaxInfoUtil;
 import com.intellij.openapi.fileTypes.PlainTextLanguage;
 import com.intellij.openapi.project.Project;
@@ -49,8 +50,8 @@ public class CodeBlockNodeRenderer implements NodeRenderer {
 
     @Override
     public void render(Node node) {
-        if (node instanceof IndentedCodeBlock) {
-            renderNode(((IndentedCodeBlock) node).getLiteral(), true);
+        if (node instanceof IndentedCodeBlock indentedCodeBlock) {
+            renderNode(indentedCodeBlock.getLiteral(), true);
         } else if (node instanceof FencedCodeBlock fencedCodeBlock) {
             renderNode(fencedCodeBlock.getLiteral(), fencedCodeBlock.getInfo(), true);
         } else if (node instanceof Code code) {
@@ -70,7 +71,13 @@ public class CodeBlockNodeRenderer implements NodeRenderer {
 
         // Critical: we need to handle newlines properly in the code tag
         Map<String, String> codeStyle = new HashMap<>();
-        codeStyle.put("style", "font-size:14pt; white-space: pre !important; -webkit-user-select: text; user-select: text;");
+        // Use editor font size instead of hardcoded value and account for IDE scale factor
+        int editorFontSize = EditorColorsManager.getInstance().getGlobalScheme().getEditorFontSize();
+
+        // Use JBUI.scale to account for IDE zoom/scaling settings
+        int scaledFontSize = com.intellij.util.ui.JBUI.scale(editorFontSize);
+        codeStyle.put("style", "font-size:" + scaledFontSize + "pt; white-space: pre-wrap !important; overflow-x: auto; -webkit-user-select: text; user-select: text;");
+
         htmlOutputWriter.tag("code", codeStyle);
 
         HighlightingMode highlightingMode = determineHighlightingMode(block);

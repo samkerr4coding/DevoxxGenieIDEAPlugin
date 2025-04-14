@@ -30,6 +30,7 @@ public class OllamaChatModelFactory extends LocalChatModelFactory {
                 .topP(chatModel.getTopP())
                 .maxRetries(chatModel.getMaxRetries())
                 .timeout(Duration.ofSeconds(chatModel.getTimeout()))
+                .listeners(getListener())
                 .build();
     }
 

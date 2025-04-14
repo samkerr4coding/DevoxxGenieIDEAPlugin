@@ -3,6 +3,7 @@ package com.devoxx.genie.service;
 import com.devoxx.genie.model.request.ChatMessageContext;
 import com.devoxx.genie.model.request.EditorInfo;
 import com.devoxx.genie.model.request.SemanticFile;
+import com.devoxx.genie.service.mcp.MCPService;
 import com.devoxx.genie.service.rag.SearchResult;
 import com.devoxx.genie.service.rag.SemanticSearchService;
 import com.devoxx.genie.ui.settings.DevoxxGenieStateService;
@@ -10,22 +11,26 @@ import com.devoxx.genie.ui.util.NotificationUtil;
 import com.devoxx.genie.util.ChatMessageContextUtil;
 import com.devoxx.genie.util.ImageUtil;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import dev.langchain4j.data.message.Content;
 import dev.langchain4j.data.message.ImageContent;
 import dev.langchain4j.data.message.TextContent;
 import dev.langchain4j.data.message.UserMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Base64;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.devoxx.genie.action.AddSnippetAction.SELECTED_TEXT_KEY;
@@ -34,9 +39,8 @@ import static com.devoxx.genie.action.AddSnippetAction.SELECTED_TEXT_KEY;
  * The message creation service for user and system messages.
  * Here's where also the basic prompt "engineering" is happening, including calling the AST magic.
  */
+@Slf4j
 public class MessageCreationService {
-
-    private static final Logger LOG = Logger.getInstance(MessageCreationService.class.getName());
 
     private static final String GIT_DIFF_INSTRUCTIONS = """
             Please analyze the code and provide ONLY the modified code in your response.
@@ -60,10 +64,20 @@ public class MessageCreationService {
 
     /**
      * Create user message.
+     * IMPORTANT: This method should be called only once per user message to avoid duplicates
+     * in the chat memory. It is called by ChatMemoryManager.addUserMessage().
      *
      * @param chatMessageContext the chat message context
      */
     public void addUserMessageToContext(@NotNull ChatMessageContext chatMessageContext) {
+        log.debug("Adding user message to context: userPrompt={}", chatMessageContext.getUserPrompt());
+
+        // Check if user message already exists to prevent duplicates
+        if (chatMessageContext.getUserMessage() != null) {
+            // Message already exists, skip creating another one
+            return;
+        }
+
         String context = chatMessageContext.getFilesContext();
         if (context != null && !context.isEmpty()) {
             constructUserMessageWithFullContext(chatMessageContext, context);
@@ -75,7 +89,7 @@ public class MessageCreationService {
 
     private void addImages(@NotNull ChatMessageContext chatMessageContext) {
         List<VirtualFile> imageFiles = FileListManager.getInstance().getImageFiles(chatMessageContext.getProject());
-        if (imageFiles != null && !imageFiles.isEmpty()) {
+        if (!imageFiles.isEmpty()) {
             // Add each image as content
             for (VirtualFile imageFile: imageFiles) {
                 try {
@@ -89,7 +103,7 @@ public class MessageCreationService {
 
                     chatMessageContext.setUserMessage(userMessage);
                 } catch (IOException e) {
-                    LOG.error("Failed to read image file");
+                    log.error("Failed to read image file");
                 }
             }
         }
@@ -103,17 +117,19 @@ public class MessageCreationService {
      */
     private void constructUserMessageWithFullContext(@NotNull ChatMessageContext chatMessageContext,
                                                      String context) {
-        LOG.debug("Constructing user message with full context");
+        log.debug("Constructing user message with full context");
         StringBuilder stringBuilder = new StringBuilder();
 
         // If git diff is enabled, add special instructions at the beginning
         if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getUseSimpleDiff())) {
-            stringBuilder.append("<DiffInstructions>").append(GIT_DIFF_INSTRUCTIONS).append("</DiffInstructions>\n\n");
+            stringBuilder.append("<DiffInstructions>").append(GIT_DIFF_INSTRUCTIONS).append("</DiffInstructions>\n");
         }
 
-        stringBuilder.append("<Context>");
-        stringBuilder.append(context);
-        stringBuilder.append("</Context>\n\n");
+        if (!context.isEmpty()) {
+            stringBuilder.append("<Context>");
+            stringBuilder.append(context);
+            stringBuilder.append("</Context>\n");
+        }
 
         stringBuilder.append("<UserPrompt>");
         stringBuilder.append(chatMessageContext.getUserPrompt());
@@ -123,7 +139,7 @@ public class MessageCreationService {
     }
 
     private void constructUserMessageWithCombinedContext(@NotNull ChatMessageContext chatMessageContext) {
-        LOG.debug("Constructing user message with combined context");
+        log.debug("Constructing user message with combined context");
 
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -131,6 +147,17 @@ public class MessageCreationService {
         if (ChatMessageContextUtil.isOpenAIo1Model(chatMessageContext.getLanguageModel())) {
             String systemPrompt = DevoxxGenieStateService.getInstance().getSystemPrompt();
             stringBuilder.append("<SystemPrompt>").append(systemPrompt).append("</SystemPrompt>\n\n");
+        }
+
+        // Check if DEVOXXGENIE.md should be included in the prompt
+        if (Boolean.TRUE.equals(DevoxxGenieStateService.getInstance().getUseDevoxxGenieMdInPrompt())) {
+            // Try to read DEVOXXGENIE.md from project root
+            String devoxxGenieMdContent = readDevoxxGenieMdFile(chatMessageContext.getProject());
+            if (devoxxGenieMdContent != null && !devoxxGenieMdContent.isEmpty()) {
+                stringBuilder.append("<ProjectContext>\n");
+                stringBuilder.append(devoxxGenieMdContent);
+                stringBuilder.append("\n</ProjectContext>\n\n");
+            }
         }
 
         // If git diff is enabled, add special instructions
@@ -147,14 +174,25 @@ public class MessageCreationService {
             }
         }
 
-        // Add the user's prompt
-        stringBuilder.append("<UserPrompt>\n").append(chatMessageContext.getUserPrompt()).append("\n</UserPrompt>\n\n");
-
-        // Add editor content or selected text
-        String editorContent = getEditorContentOrSelectedText(chatMessageContext);
-        if (!editorContent.isEmpty()) {
-            stringBuilder.append(editorContent);
+        if (MCPService.isMCPEnabled()) {
+            // We'll add more info about the project path so tools can use this info.
+            stringBuilder
+                    .append("<ProjectPath>\n")
+                    .append(chatMessageContext.getProject().getBasePath())
+                    .append("</ProjectPath>");
         }
+
+        // Only include the currently open editor file when MCP is disabled
+        if (!MCPService.isMCPEnabled()) {
+            // Add editor content or selected text
+            String editorContent = getEditorContentOrSelectedText(chatMessageContext);
+            if (!editorContent.isEmpty()) {
+                stringBuilder.append(editorContent);
+            }
+        }
+
+        // Add the user's prompt, this MUST BE at the bottom of the prompt for some local models to understand!
+        stringBuilder.append("<UserPrompt>\n").append(chatMessageContext.getUserPrompt()).append("\n</UserPrompt>\n\n");
 
         chatMessageContext.setUserMessage(UserMessage.from(stringBuilder.toString()));
     }
@@ -166,7 +204,7 @@ public class MessageCreationService {
      * @return the user message
      */
     private @NotNull String addSemanticSearchResults(@NotNull ChatMessageContext chatMessageContext) {
-        LOG.debug("Adding semantic search results to user message");
+        log.debug("Adding semantic search results to user message");
 
         StringBuilder contextBuilder = new StringBuilder();
 
@@ -202,7 +240,7 @@ public class MessageCreationService {
                 );
             }
         } catch (Exception e) {
-            LOG.warn("Failed to get semantic search results: " + e.getMessage());
+            log.warn("Failed to get semantic search results: " + e.getMessage());
         }
 
         return contextBuilder.toString();
@@ -265,6 +303,32 @@ public class MessageCreationService {
             return new String(file.contentsToByteArray(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             return "Error reading file: " + e.getMessage();
+        }
+    }
+
+    /**
+     * Read the content of DEVOXXGENIE.md file from the project root directory.
+     *
+     * @param project the project
+     * @return the content of DEVOXXGENIE.md file or null if file not found or can't be read
+     */
+    private @Nullable String readDevoxxGenieMdFile(Project project) {
+        try {
+            if (project == null || project.getBasePath() == null) {
+                log.warn("Project or base path is null");
+                return null;
+            }
+
+            Path devoxxGenieMdPath = Paths.get(project.getBasePath(), "DEVOXXGENIE.md");
+            if (!Files.exists(devoxxGenieMdPath)) {
+                log.debug("DEVOXXGENIE.md file not found in project root: " + devoxxGenieMdPath);
+                return null;
+            }
+
+            return Files.readString(devoxxGenieMdPath, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            log.warn("Failed to read DEVOXXGENIE.md file: " + e.getMessage());
+            return null;
         }
     }
 

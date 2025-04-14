@@ -8,15 +8,17 @@ import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.service.LLMProviderService;
 import com.devoxx.genie.ui.listener.LLMSettingsChangeListener;
 import com.devoxx.genie.ui.renderer.ModelInfoRenderer;
+import com.devoxx.genie.ui.renderer.ModelProviderRenderer;
 import com.devoxx.genie.ui.settings.DevoxxGenieStateService;
+import com.devoxx.genie.ui.util.DevoxxGenieFontsUtil;
 import com.devoxx.genie.ui.util.NotificationUtil;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.ui.components.JBPanel;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -30,9 +32,8 @@ import java.util.Optional;
 import static com.devoxx.genie.ui.component.button.ButtonFactory.createActionButton;
 import static com.devoxx.genie.ui.util.DevoxxGenieIconsUtil.RefreshIcon;
 
+@Slf4j
 public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSettingsChangeListener {
-
-    private static final Logger LOG = Logger.getInstance(LlmProviderPanel.class);
 
     private final transient Project project;
 
@@ -60,7 +61,13 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
         super(new BorderLayout());
         this.project = project;
 
+        // Set consistent renderers and fonts for both combo boxes
+        modelProviderComboBox.setRenderer(new ModelProviderRenderer());
         modelNameComboBox.setRenderer(new ModelInfoRenderer());
+
+        // Set the font for the combo boxes themselves
+        modelProviderComboBox.setFont(DevoxxGenieFontsUtil.getDropdownFont());
+        modelNameComboBox.setFont(DevoxxGenieFontsUtil.getDropdownFont());
 
         addModelProvidersToComboBox();
 
@@ -141,14 +148,15 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
 
                 updateModelNamesComboBox(selectedProvider.getName());
                 modelNameComboBox.setRenderer(new ModelInfoRenderer());
+                modelNameComboBox.setFont(DevoxxGenieFontsUtil.getDropdownFont());
                 modelNameComboBox.revalidate();
                 modelNameComboBox.repaint();
                 refreshButton.setEnabled(true);
 
             });
-        }  else {
+        } else {
             NotificationUtil.sendNotification(project,
-                    "Model refresh is only available for Ollama providers.");
+                    "Model refresh is only available for LMStudio, Ollama, GPT4All and Jan providers.");
         }
     }
 
@@ -160,6 +168,8 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
             try {
                 modelNameComboBox.removeAllItems();
                 modelNameComboBox.setVisible(true);
+                // Ensure font consistency is maintained when updating
+                modelNameComboBox.setFont(DevoxxGenieFontsUtil.getDropdownFont());
 
                 ChatModelFactoryProvider
                         .getFactoryByProvider(provider)
@@ -175,7 +185,7 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
                                 this::hideModelNameComboBox
                         );
             } catch (Exception e) {
-                LOG.error("Error updating model names", e);
+                log.error("Error updating model names", e);
                 Messages.showErrorDialog(project, "Failed to update model names: " + e.getMessage(), "Error");
             }
         });
@@ -277,6 +287,7 @@ public class LlmProviderPanel extends JBPanel<LlmProviderPanel> implements LLMSe
                 updateModelNamesComboBox(modelProvider.getName());
 
                 modelNameComboBox.setRenderer(new ModelInfoRenderer());
+                modelNameComboBox.setFont(DevoxxGenieFontsUtil.getDropdownFont());
                 modelNameComboBox.revalidate();
                 modelNameComboBox.repaint();
             }

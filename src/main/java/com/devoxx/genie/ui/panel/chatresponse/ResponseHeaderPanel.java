@@ -2,6 +2,7 @@ package com.devoxx.genie.ui.panel.chatresponse;
 
 import com.devoxx.genie.model.LanguageModel;
 import com.devoxx.genie.model.request.ChatMessageContext;
+import com.devoxx.genie.ui.util.FontUtil;
 import com.devoxx.genie.ui.util.NotificationUtil;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.components.JBLabel;
@@ -33,7 +34,13 @@ public class ResponseHeaderPanel extends JBPanel<ResponseHeaderPanel> {
             .withPreferredHeight(30);
 
         add(getCreatedOnLabel(chatMessageContext), BorderLayout.WEST);
-        add(createCopyButton(chatMessageContext), BorderLayout.EAST);
+
+        // Create a panel for the buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
+        buttonPanel.setOpaque(false);
+        buttonPanel.add(createCopyButton(chatMessageContext));
+
+        add(buttonPanel, BorderLayout.EAST);
     }
 
     /**
@@ -55,7 +62,8 @@ public class ResponseHeaderPanel extends JBPanel<ResponseHeaderPanel> {
         String label = chatMessageContext.getCreatedOn().format(DateTimeFormatter.ofPattern("d MMM yyyy HH:mm")) + " : " + modelInfo;
 
         JBLabel createdOnLabel = new JBLabel(label, SwingConstants.LEFT);
-        createdOnLabel.setFont(createdOnLabel.getFont().deriveFont(12f));
+        createdOnLabel.setFont(createdOnLabel.getFont().deriveFont(FontUtil.getFontSize()));
+
         createdOnLabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 10));
         return createdOnLabel;
     }
@@ -67,7 +75,7 @@ public class ResponseHeaderPanel extends JBPanel<ResponseHeaderPanel> {
      * @return the Delete button
      */
     private @NotNull JButton createCopyButton(ChatMessageContext chatMessageContext) {
-        return createActionButton( CopyIcon, "Copy to clipboard", e -> copyPrompt(chatMessageContext));
+        return createActionButton(CopyIcon, "Copy to clipboard", e -> copyPrompt(chatMessageContext));
     }
 
     /**
@@ -80,8 +88,8 @@ public class ResponseHeaderPanel extends JBPanel<ResponseHeaderPanel> {
         Transferable transferable = new StringSelection(response);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(transferable, null);
         NotificationUtil.sendNotification(
-            chatMessageContext.getProject(),
-            "The prompt response has been copied to the clipboard"
+                chatMessageContext.getProject(),
+                "The prompt response has been copied to the clipboard"
         );
     }
 }

@@ -7,13 +7,15 @@ import com.devoxx.genie.model.LanguageModel;
 import com.devoxx.genie.model.enums.ModelProvider;
 import com.devoxx.genie.model.request.ChatMessageContext;
 import com.devoxx.genie.service.DevoxxGenieSettingsService;
-import com.devoxx.genie.ui.EditorFileButtonManager;
+import com.devoxx.genie.ui.component.button.EditorFileButtonManager;
 import com.devoxx.genie.ui.component.input.PromptInputArea;
 import com.devoxx.genie.ui.panel.ActionButtonsPanel;
 import com.devoxx.genie.ui.panel.PromptOutputPanel;
+import com.devoxx.genie.ui.processor.CommandProcessor;
 import com.devoxx.genie.ui.settings.DevoxxGenieStateService;
 import com.devoxx.genie.ui.util.NotificationUtil;
 import com.devoxx.genie.util.ChatMessageContextUtil;
+import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
 import org.jetbrains.annotations.NotNull;
@@ -63,6 +65,13 @@ public class ActionButtonsPanelController implements PromptExecutionListener {
         String userPromptText = getUserPromptText();
 
         if (userPromptText == null) {
+            return false;
+        }
+
+        // Check if this is the special /init command that should be handled locally
+        if (CommandProcessor.processCommand(project, userPromptText)) {
+            // Command was processed, clear the input field
+            promptInputArea.clear();
             return false;
         }
 
@@ -146,9 +155,18 @@ public class ActionButtonsPanelController implements PromptExecutionListener {
     /**
      * Initiates the calculation of tokens and cost based on the selected model and provider.
      * It delegates the actual calculation to the TokenCalculationController.
+     * This operation is performed in a background task to avoid EDT freezes.
      */
     public void calculateTokensAndCost() {
-        tokenCalculationController.calculateTokensAndCost();
+        // Create and run a background task for token calculation
+        com.intellij.openapi.progress.ProgressManager.getInstance().run(
+            new com.intellij.openapi.progress.Task.Backgroundable(project, "Calculating tokens", false) {
+                @Override
+                public void run(@NotNull ProgressIndicator indicator) {
+                    tokenCalculationController.calculateTokensAndCost();
+                }
+            }
+        );
     }
 
     public void updateButtonVisibility() {

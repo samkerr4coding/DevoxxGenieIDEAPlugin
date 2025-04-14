@@ -6,12 +6,12 @@ import com.devoxx.genie.ui.listener.CustomPromptChangeListener;
 import com.devoxx.genie.ui.settings.DevoxxGenieStateService;
 import com.devoxx.genie.ui.topic.AppTopics;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.SystemInfo;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.components.JBTextArea;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -25,9 +25,8 @@ import java.util.List;
 
 import static com.devoxx.genie.model.Constant.*;
 
+@Slf4j
 public class CommandAutoCompleteTextField extends JBTextArea implements CustomPromptChangeListener {
-
-    private static final Logger LOG = Logger.getInstance(CommandAutoCompleteTextField.class);
 
     private final List<String> commands = new ArrayList<>();
     private final transient Project project;
@@ -56,6 +55,7 @@ public class CommandAutoCompleteTextField extends JBTextArea implements CustomPr
         commands.add(COMMAND_PREFIX + REVIEW_COMMAND);
         commands.add(COMMAND_PREFIX + TDG_COMMAND);
         commands.add(COMMAND_PREFIX + HELP_COMMAND);
+        commands.add(COMMAND_PREFIX + INIT_COMMAND);
 
         DevoxxGenieSettingsService stateService = DevoxxGenieStateService.getInstance();
         for (CustomPrompt customPrompt : stateService.getCustomPrompts()) {
@@ -88,18 +88,28 @@ public class CommandAutoCompleteTextField extends JBTextArea implements CustomPr
             KeyStroke currentKeyStroke = KeyStroke.getKeyStrokeForEvent(e);
             DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
 
-            String shortcutString;
+            String submitShortcutString;
+            String newlineShortcutString;
+
             if (SystemInfo.isMac) {
-                shortcutString = stateService.getSubmitShortcutMac();
+                submitShortcutString = stateService.getSubmitShortcutMac();
+                newlineShortcutString = stateService.getNewlineShortcutMac();
             } else if (SystemInfo.isLinux) {
-                shortcutString = stateService.getSubmitShortcutLinux();
+                submitShortcutString = stateService.getSubmitShortcutLinux();
+                newlineShortcutString = stateService.getNewlineShortcutLinux();
             } else {
-                shortcutString = stateService.getSubmitShortcutWindows();
+                submitShortcutString = stateService.getSubmitShortcutWindows();
+                newlineShortcutString = stateService.getNewlineShortcutWindows();
             }
 
-            KeyStroke submitKeyStroke = KeyStroke.getKeyStroke(shortcutString);
+            KeyStroke submitKeyStroke = KeyStroke.getKeyStroke(submitShortcutString);
+            KeyStroke newlineKeyStroke = KeyStroke.getKeyStroke(newlineShortcutString);
+
             if (submitKeyStroke != null && submitKeyStroke.equals(currentKeyStroke)) {
                 sendPrompt();
+                e.consume();
+            } else if (newlineKeyStroke != null && newlineKeyStroke.equals(currentKeyStroke)) {
+                insertNewline();
                 e.consume();
             } else if (e.getKeyCode() == KeyEvent.VK_SPACE && e.isControlDown()) {
                 autoComplete();
@@ -129,13 +139,21 @@ public class CommandAutoCompleteTextField extends JBTextArea implements CustomPr
                             getDocument().remove(start, currentLine.length());
                             getDocument().insertString(start, command, null);
                         } catch (BadLocationException ex) {
-                            LOG.error("Error while auto-completing command", ex);
+                            log.error("Error while auto-completing command", ex);
                         }
                         setCaretPosition(text.length() - currentLine.length() + command.length());
                         isAutoCompleting = false;
                         break;
                     }
                 }
+            }
+        }
+
+        private void insertNewline() {
+            try {
+                getDocument().insertString(getCaretPosition(), "\n", null);
+            } catch (BadLocationException ex) {
+                log.error("Error inserting newline", ex);
             }
         }
     }
@@ -157,7 +175,7 @@ public class CommandAutoCompleteTextField extends JBTextArea implements CustomPr
                 try {
                     handleAutoComplete();
                 } catch (BadLocationException e) {
-                    LOG.error("Error while auto-completing command", e);
+                    log.error("Error while auto-completing command", e);
                 }
             });
         }

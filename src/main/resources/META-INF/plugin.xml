@@ -35,12 +35,90 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h2>v0.5.8</h2>
+        <UL>
+            <LI>Fix #644 : MCP Functionality Issue on Windows Platform</LI>
+        </UL>
+        <h2>v0.5.7</h2>
+        <UL>
+            <LI>Fix #545 : Use Bedrock model name with 'us' prefix to make it work 'us.anthropic.claude-3-7-sonnet-20250219-v1:0'</LI>
+            <LI>Feat #630 : Update Bedrock model Id with eu,us,apac prefix when using Anthropic, LLama</LI>
+            <LI>Feat #632 : Stopping a chat which is running doesn't stop the MCP process</LI>
+            <LI>Feat #635 : Add MCP Envs is same window</LI>
+            <LI>Feat #638 : Migrated to Langchain4J v1.0.0 beta3</LI>
+            <LI>Fix #624 : Font size problem in streaming response fixed</LI>
+        </UL>
+        <h2>v0.5.6</h2>
+        <UL>
+            <LI>Fix #620 : Renamed Google Gemini model to gemini-2.5-pro-preview-03-25</LI>
+            <LI>Fix #622 : Fix MCP config screen still shows incorrectly the SSE settings</LI>
+        </UL>
+        <h2>v0.5.5</h2>
+        <UL>
+            <LI>Fix #609 : Always place the user query at the bottom of the message</LI>
+            <LI>Fix #615 : Clicking on the MCP "Show MCP Log Panel" doesn't work</LI>
+        </UL>
+        <h2>v0.5.4</h2>
+        <UL>
+            <LI>Feat: Show MCP Ai Message in chat output panel by @stephanj</LI>
+            <LI>Fix #587 : Escape template variables by @stephanj</LI>
+            <LI>Fix #602 : Corrected the code font size by @stephanj</LI>
+            <LI>Fix #605 : Token calculation should happen on a worker thread by @stephank</LI>
+        </UL>
+        <h2>v0.5.3</h2>
+        <UL>
+            <Li>Feat #586 : Added Gemini 2.5 Pro model by @stephanj</LI>
+            <LI>Fix #588 : [Regression] Fix streaming responses by @stephanj</LI>
+            <LI>Feat #590 : User can now configure which keys to use for newline by @stephanj</LI>
+            <LI>Fix #595 : At least one message is required (increased default chat memory to 50) by @stephanj</LI>
+            <LI>Fix #589 : Font size for code snippets by @stephanj</LI>
+            <LI>Feat : Show Ai messages in MCP logs by @stephanj</LI>
+        </UL>
+        <h2>v0.5.2</h2>
+        <UL>
+            <LI>Fix #582 : Reuse existing MCP clients and close them when IDEA stops by @stephanj</LI>
+        </UL>
+        <h2>v0.5.1</h2>
+        <UL>
+            <LI>Fix #567 : At least one message is required by @stephanj</LI>
+            <LI>Fix #569 : Fix to support again attached images by @stephanj</LI>
+            <LI>Fix #571 : Don't show default editor file when using MCP by @stephanj</LI>
+            <LI>Fix #576 : LMStudio and Ollama do not return a response by @stephanj</LI>
+            <LI>Feat #574 : Edit custom prompt via a dialog by @mydeveloperplanet</LI>
+            <LI>Fix #580 : IDEA Compatibility problem Json dependency</LI>
+        </UL>
+        <h2>v0.5.0</h2>
+        <UL>
+          <LI>Feature: Auto create DEVOXXGENIE.md file for extra system prompt info</LI>
+          <LI>Feature: Model Context Protocol (MCP) Support by @stephanj</LI>
+          <LI>Fix #554 : Exception thrown in PHPStorm with 'Use .gitignore' enabled</LI>
+          <LI>Fix #560 : SemanticSearchService must use stateService.getIndexerMaxResults()</LI>
+          <LI>Feat #557 : Upgrade Langchain4j to v1.0.0-beta2 by @stephanj</LI>
+        </UL>
+        <h2>V0.4.22</h2>
+        <UL>
+            <LI>Feat #555 : Improve "Calc Tokens... " and "Copy directory... " user messages by @stephanj</LI>
+            <LI>Fix #554 : Exception thrown in PHPStorm with 'Use .gitignore' enabled by @stephanj</LI>
+        </UL>
+        <h2>V0.4.21</h2>
+        <UL>
+            <LI>Fix #553 : integration with LMStudio by @mydeveloperplanet</LI>
+            <LI>Feat ##550 : Allow extra text to be added after custom prompts by @mydeveloperplanet</LI>
+        </UL>
+        <h2>V0.4.20</h2>
+        <UL>
+            <LI>Fix #546 : NPE on chatMessageContext.getFilesContext().isEmpty() by @stephanj</LI>
+            <LI>Feat #544 : Support for OpenAI GPT-4.5 Preview by @stephanj</LI>
+        </UL>
         <h2>V0.4.19</h2>
         <UL>
+            <LI>Fix #529 : Concurrency improvement by @stephanj</LI>
             <LI>Fix #528 : Service Management singleton fix by @stephanj</LI>
             <LI>FIX #531 : Add .env in the list of ignored files by @stephanj</LI>
             <LI>Fix #532 : HTTP Client Optimisation by @stephanj</LI>
-            <LI>Fix #529 : Concurrency improvement by @stephanj</LI>
+            <LI>Fix #533 : Added prompt files list is replaced with current open file by @stephanj</LI>
+            <LI>Fix #534 : Refactoring ProjectScannerService by @stephanj</LI>
+            <LI>Fix #540 : User can add/attach the same files multiple times by @stephanj</LI>
         </UL>
         <h2>V0.4.18</h2>
         <UL>
@@ -183,7 +261,7 @@
         <UL>
             <LI>Feature #327: Test Driven Generation integration</LI>
             <LI>Fix #324: Replace invocations of SwingUtilities.invokeLater()</LI>
-            <LI>Fix #236: Refactoring large class ActionButtonsPanel<LI>
+            <LI>Fix #236: Refactoring large class ActionButtonsPanel</LI>
             <LI>Fix #329: Refactored the calc token cost</LI>
             <LI>Fix #333: Use LangChain4j new model names</LI>
             <LI>Fix #336: Cost Calculation is consistent now between calculation from directory and calculation from DevoxxGenie panel</LI>
@@ -415,7 +493,7 @@
         <UL>
             <LI>Feat #63: Support for Gemini Pro 1.5 & Flash using API Keys</LI>
             <LI>Fix for incorrect LLM selection</LI>
-            <LI>Fix for chat response styling issue<LI>
+            <LI>Fix for chat response styling issue</LI>
             <LI>Fix prompt context issue</LI>
         </UL>
         <h2>v0.1.7</h2>
@@ -545,6 +623,11 @@
                              instance="com.devoxx.genie.ui.settings.prompt.PromptSettingsConfigurable"
                              displayName="Prompts"/>
 
+        <projectConfigurable id="com.devoxx.genie.mcpsettings"
+                             parentId="com.devoxx.genie.DevoxxGenie"
+                             instance="com.devoxx.genie.ui.settings.mcp.MCPSettingsConfigurable"
+                             displayName="MCP Settings (BETA)"/>
+
         <projectConfigurable id="com.devoxx.genie.WebSearch"
                              parentId="com.devoxx.genie.DevoxxGenie"
                              instance="com.devoxx.genie.ui.settings.websearch.WebSearchProvidersConfigurable"
@@ -573,16 +656,31 @@
         <toolWindow id="DevoxxGenie"
                     anchor="right"
                     icon="/icons/pluginIcon.svg"
-                    factoryClass="com.devoxx.genie.ui.DevoxxGenieToolWindowFactory"/>
+                    factoryClass="com.devoxx.genie.ui.window.DevoxxGenieToolWindowFactory"/>
+
+        <toolWindow id="DevoxxGenieMCPLogs"
+                    anchor="bottom"
+                    icon="/icons/logIcon.svg"
+                    secondary="true"
+                    doNotActivateOnStart="true"
+                    canCloseContents="true"
+                    factoryClass="com.devoxx.genie.ui.window.MCPLogToolWindowFactory"/>
 
         <applicationService serviceImplementation="com.devoxx.genie.ui.settings.DevoxxGenieStateService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.conversations.ConversationStorageService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.PromptExecutionService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.ChatMemoryService"/>
+        <applicationService serviceImplementation="com.devoxx.genie.service.prompt.response.nonstreaming.NonStreamingPromptExecutionService"/>
+        <applicationService serviceImplementation="com.devoxx.genie.service.prompt.memory.ChatMemoryService"/>
+        <applicationService serviceImplementation="com.devoxx.genie.service.prompt.threading.ThreadPoolManager"/>
+        <applicationService serviceImplementation="com.devoxx.genie.service.prompt.threading.PromptTaskTracker"/>
+        <applicationService serviceImplementation="com.devoxx.genie.service.prompt.memory.ChatMemoryManager"/>
+        <applicationService serviceImplementation="com.devoxx.genie.service.prompt.command.PromptCommandProcessor"/>
+        <applicationService serviceImplementation="com.devoxx.genie.service.prompt.strategy.PromptExecutionStrategyFactory"/>
+        <applicationService serviceImplementation="com.devoxx.genie.service.prompt.cancellation.PromptCancellationService"/>
+        <projectService serviceImplementation="com.devoxx.genie.service.prompt.PromptExecutionService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.MessageCreationService"/>
         <applicationService serviceImplementation="com.devoxx.genie.chatmodel.local.ollama.OllamaModelService"/>
         <applicationService serviceImplementation="com.devoxx.genie.chatmodel.local.gpt4all.GPT4AllModelService"/>
-        <applicationService serviceImplementation="com.devoxx.genie.service.websearch.WebSearchService"/>
+        <applicationService serviceImplementation="com.devoxx.genie.service.prompt.websearch.WebSearchPromptExecutionService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.LLMProviderService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.PropertiesService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.projectscanner.ProjectScannerService"/>
@@ -592,10 +690,26 @@
         <applicationService serviceImplementation="com.devoxx.genie.chatmodel.cloud.openrouter.OpenRouterService"/>
         <applicationService serviceImplementation="com.devoxx.genie.chatmodel.cloud.bedrock.BedrockService"/>
         <applicationService serviceImplementation="com.devoxx.genie.chatmodel.local.jan.JanModelService"/>
+        <applicationService serviceImplementation="com.devoxx.genie.service.mcp.MCPExecutionService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.gitdiff.GitMergeService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.chromadb.ChromaDockerService"/>
         <applicationService serviceImplementation="com.devoxx.genie.service.rag.ProjectIndexerService"/>
     </extensions>
+
+    <extensionPoints>
+        <extensionPoint name="projectScannerExtension"
+                        interface="com.devoxx.genie.service.analyzer.ProjectAnalyzerExtension"/>
+    </extensionPoints>
+
+    <!-- Optional dependencies for enhanced functionality in specific IDEs -->
+    <depends optional="true" config-file="java-features.xml">com.intellij.modules.java</depends>
+    <depends optional="true" config-file="php-features.xml">com.jetbrains.php</depends>
+    <depends optional="true" config-file="python-features.xml">com.intellij.modules.python</depends>
+    <depends optional="true" config-file="clion-features.xml">com.intellij.modules.clion</depends>
+    <depends optional="true" config-file="rust-features.xml">org.rust.lang</depends>
+    <depends optional="true" config-file="webstorm-features.xml">JavaScript</depends>
+    <depends optional="true" config-file="kotlin-features.xml">org.jetbrains.kotlin</depends>
+    <depends optional="true" config-file="goland-features.xml">org.jetbrains.plugins.go</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <notificationGroup id="com.devoxx.genie.notifications" displayType="BALLOON" />

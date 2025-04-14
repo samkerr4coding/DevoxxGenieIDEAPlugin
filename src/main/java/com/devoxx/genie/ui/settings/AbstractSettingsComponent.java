@@ -17,6 +17,7 @@ public class AbstractSettingsComponent implements SettingsComponent {
 
     protected final JPanel panel = new JPanel(new BorderLayout());
 
+    protected static final String LINK_EMOJI = "\uD83D\uDD17";
     protected static final String PASSWORD_EMOJI = "\uD83D\uDD11";
 
     protected final DevoxxGenieStateService stateService = DevoxxGenieStateService.getInstance();
@@ -53,6 +54,7 @@ public class AbstractSettingsComponent implements SettingsComponent {
         panel.add(new JBLabel(label), gbc);
         gbc.gridy++;
     }
+
     protected void addProviderSettingRow(JPanel panel, GridBagConstraints gbc, String label, JCheckBox checkbox, JComponent urlComponent) {
         JPanel providerPanel = new JPanel(new BorderLayout(5, 0));
         providerPanel.add(checkbox, BorderLayout.WEST);
@@ -61,17 +63,12 @@ public class AbstractSettingsComponent implements SettingsComponent {
         addSettingRow(panel, gbc, label, providerPanel);
     }
 
-
-    protected @NotNull JComponent createTextWithPasswordButton(JComponent jComponent) {
-        return createTextWithLinkButton(jComponent, "https://learn.microsoft.com/en-us/azure/ai-services/openai/overview");
-    }
-
     protected @NotNull JComponent createTextWithPasswordButton(JComponent jComponent, String url) {
         return createTextWithLinkButton(jComponent, url);
     }
 
     protected @NotNull JComponent createTextWithLinkButton(JComponent jComponent,
-                                                           String url) {
+                                                         String url) {
         JPanel jPanel = new JPanel(new BorderLayout());
         jPanel.add(jComponent, BorderLayout.CENTER);
         JButton btnApiKey = createActionButton(

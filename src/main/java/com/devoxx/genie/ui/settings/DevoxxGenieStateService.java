@@ -3,6 +3,7 @@ package com.devoxx.genie.ui.settings;
 import com.devoxx.genie.model.CustomPrompt;
 import com.devoxx.genie.model.LanguageModel;
 import com.devoxx.genie.model.enums.ModelProvider;
+import com.devoxx.genie.model.mcp.MCPSettings;
 import com.devoxx.genie.service.DevoxxGenieSettingsService;
 import com.devoxx.genie.util.DefaultLLMSettingsUtil;
 import com.intellij.openapi.application.ApplicationManager;
@@ -37,6 +38,10 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
     private String submitShortcutMac = "shift ENTER";
     private String submitShortcutLinux = "shift ENTER";
 
+    private String newlineShortcutWindows = "ctrl ENTER";
+    private String newlineShortcutMac = "meta ENTER";  // Command+Enter on Mac
+    private String newlineShortcutLinux = "ctrl ENTER";
+
     // Default excluded files for scan project
     private List<String> excludedFiles = new ArrayList<>(Arrays.asList(
             "package-lock.json", "yarn.lock", ".env", "build.gradle", "settings.gradle"
@@ -49,7 +54,9 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
             new CustomPrompt(EXPLAIN_COMMAND, EXPLAIN_PROMPT),
             new CustomPrompt(REVIEW_COMMAND, REVIEW_PROMPT),
             new CustomPrompt(TDG_COMMAND, TDG_PROMPT),
-            new CustomPrompt(HELP_COMMAND, HELP_PROMPT)
+            new CustomPrompt(FIND_COMMAND, FIND_PROMPT),
+            new CustomPrompt(HELP_COMMAND, HELP_PROMPT),
+            new CustomPrompt(INIT_COMMAND, INIT_PROMPT)
     );
 
     private List<LanguageModel> languageModels = new ArrayList<>();
@@ -121,6 +128,15 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
 
     private Boolean excludeJavaDoc = false;
 
+    // DEVOXXGENIE.md generation options
+    private Boolean createDevoxxGenieMd = false;
+    private Boolean includeProjectTree = false;
+    private Integer projectTreeDepth = 3;
+    private Boolean useDevoxxGenieMdInPrompt = false;
+
+    private Boolean showAzureOpenAIFields = false;
+    private Boolean showAwsFields = false;
+
     @Setter
     private Boolean useGitIgnore = true;
 
@@ -137,6 +153,11 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
 
     private Map<String, Integer> modelWindowContexts = new HashMap<>();
     private Integer defaultWindowContext = 8000;
+
+    // MCP settings
+    private MCPSettings mcpSettings = new MCPSettings();
+    private Boolean mcpEnabled = false;
+    private Boolean mcpDebugLogsEnabled = false;
 
     @Setter(AccessLevel.NONE)
     private List<Runnable> loadListeners = new ArrayList<>();
@@ -239,5 +260,29 @@ public final class DevoxxGenieStateService implements PersistentStateComponent<D
 
     public Boolean isOllamaAllowed() {
         return ollamaAllowed;
+    }
+
+    public MCPSettings getMcpSettings() {
+        return mcpSettings;
+    }
+
+    public void setMcpSettings(MCPSettings mcpSettings) {
+        this.mcpSettings = mcpSettings;
+    }
+
+    public Boolean getMcpEnabled() {
+        return mcpEnabled;
+    }
+
+    public void setMcpEnabled(Boolean mcpEnabled) {
+        this.mcpEnabled = mcpEnabled;
+    }
+
+    public Boolean getMcpDebugLogsEnabled() {
+        return mcpDebugLogsEnabled;
+    }
+
+    public void setMcpDebugLogsEnabled(Boolean mcpDebugLogsEnabled) {
+        this.mcpDebugLogsEnabled = mcpDebugLogsEnabled;
     }
 }
